@@ -31,7 +31,7 @@ Finally a CNN was trained to detect the cows in the images, and statistics about
 
 A random subset of the full recording consisting of 1722 images was manually annotated. This subset contained in total 6399 cows. Each cow was annotated with seven landmark points: head, left and right shoulder, front middle, left and right hip and back middle. In addition to that one additional landmark "cow center" was defined as the mean of front middle and back middle. This data was then used to train a CNN detector.
 
-The detector was split into two step. The first step is a fully convolutional CNN that detects the landmarks in the image. Currently only four of the landmarks was used to speed up the experiments, but extending to use all 8 is straight forward. The architecture of this network is a fully convolutional version of VGG with batch normalisation added after each convolution step. Details are shown in Table \ref{tab:cownet}.
+The detector was split into two step. The first step is a fully convolutional CNN that detects the landmarks in the image. Currently only four of the landmarks was used to speed up the experiments, but extending to use all 8 is straight forward. The architecture of this network is a fully convolutional version of VGG \cite{FIXME} with batch normalisation \cite{DBLP:journals/corr/IoffeS15} added after each convolution step. Details are shown in Table \ref{tab:cownet}.
 
 The second step is another CNN that works with the probability map produced by the first as input and tries to detect the cows and their orientations. The full circle is divided into 32 equally spaced orientations which generates 32 different oriented cow classes. In addition to that there is the no cow class, which makes the total number of classes of this CNN 33. The input probabilities turned into log likelihoods as it makes more sense when summing them together. Then the network consists of a single $ 13 \times 13 $ convolutional layer. Details are shown in Table \ref{tab:cowdirnet}.
 
@@ -95,6 +95,15 @@ Softmax & & \\
 \label{tab:cowdirnet}
 \end{table}
 
+XXX: Landmarks to trainingdata
 
+The weights of the convolutions are initiated using random samples draw from a Gaussian 
+distribution truncated at $2\sigma$, with standard deviation $\sigma=\sqrt{\frac{2}{n}}$, 
+where $n$ is the number of inputs. The networks are regularized with weight decay of 
+$0.0001$ and optimized using stochastic gradient descent with $0.9$ momentum. The 
+learning rate is initiated to $1.0$ and reduced by a factor $10$ each time the validation 
+error flattens. The landmark CNN uses only valid outputs from the convolutional and maxpool 
+layers while the cow detector keeps the same resolution to also detect cows that are 
+slightly outside the image.
 
 \end{document}
