@@ -15,8 +15,19 @@ Cows are interacting...
 
 \section{Introduction}
 
-XXX scientists are interested in studying the social interactions between cows in diary farms. Typically that is performed by defining a set of interaction events such as head butting, body pushing, social licking, mounting, ... Then an expert studies a scene of interest for large amount mount of time and counts them number of each event. Some of these evens are quite rare, which means that a lot of expert time have to be spent in looking at uninteresting events.
+XXX scientists are interested in studying the social interactions between cows in diary farms. Typically that is performed by defining a set of interaction events such as head butting, body pushing, social licking, mounting, ... Then an expert studies an area of interest for large amount mount of time and counts them number of each event. Some of these events are quite rare, which means that a lot of expert time have to be spent in looking at uninteresting events.
 
-In this paper the goal is to take the first step towards an automated system. The scene of interest will be filmed using video cameras. Then an automated watchdog will remove a lot of the uninteresting parts of that video. The remaining video will still have to be studied by experts, but the time spent looking at uninteresting video will be significantly reduced.
+In this paper the goal is to take the first step towards an automated system. The study area is filmed using video cameras. Then an automated watchdog will remove a lot of the uninteresting parts of that video. The remaining video will still have to be studied by experts, but the time spent looking at uninteresting video will be significantly reduced.
+
+The pilot study used to develop this watchdog was made in a dairy barn in the south of Sweden with 252 Swedish Holstein cows. They were milked by four automated milking robots, which had a common waiting area (6x18 meters). This waiting area is an open space which several cows ready for milking are allowed to enter. They will then interact with each other in order to decide who are allowed to enter each of the milking robots first.
+
+Video recordings were made using three Axis M3006-V cameras with a wide angle of 134 degrees and placed at 3.6 meter height pointing straight down to optimize overview over the study area. There is a significant overlap between the camera images in order to not miss events taking place at the border between the cameras.
+
+The cameras was calibrated to compensate for lens distortion and rectified. Although the cameras was physically mounted to point fairly straight down, they was still slightly tiled. This tilting was synthetically removed during this rectification. The end result of this calibration is video images where the cows have the same size regardless of where in the image they appear. Also the scan-lines of the three different cameras becomes aligned which allows them to be stitched together to form an overview of the entire waiting area.
+
+Finally a CNN was trained to detect the cows in the images, and statistics about how many cows and their distances/relation to each other was extracted. Using these statistics the XXX scientists can form queries to select time intervals of interest to watch, such as "show me video clips involving at least two cows with the neck of one cow closer than one meter to the body of the other".
+
+\section{CNN cow detector}
+
 
 \end{document}
