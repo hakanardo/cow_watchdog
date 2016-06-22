@@ -28,6 +28,40 @@ The cameras was calibrated to compensate for lens distortion and rectified. Alth
 Finally a CNN was trained to detect the cows in the images, and statistics about how many cows and their distances/relation to each other was extracted. Using these statistics the XXX scientists can form queries to select time intervals of interest to watch, such as "show me video clips involving at least two cows with the neck of one cow closer than one meter to the body of the other".
 
 \section{CNN cow detector}
+\begin{tabular}{|l|c|c|}
+\hline 
+\textbf{Layer type} & \textbf{Kernel size} & \textbf{Channels} \\ 
+\hline 
 
+Conv + BNorm + Relu & 3x3 & 32 \\ 
+MaxPool(stride=2) & 2x2 &  \\ 
+\hline 
+
+Conv + BNorm + Relu & 3x3 & 64 \\ 
+MaxPool(stride=2) & 2x2 &  \\ 
+\hline 
+
+Conv + BNorm + Relu & 3x3 & 128 \\ 
+Conv + BNorm + Relu & 3x3 & 128 \\ 
+MaxPool(stride=2) & 2x2 &  \\ 
+\hline 
+
+Conv + BNorm + Relu & 3x3 & 256 \\ 
+Conv + BNorm + Relu & 3x3 & 256 \\ 
+MaxPool(stride=2) & 2x2 &  \\ 
+\hline 
+
+Conv + BNorm + Relu & 3x3 & 512 \\ 
+Conv + BNorm + Relu & 3x3 & 512 \\ 
+MaxPool(stride=2) & 2x2 &  \\ 
+\hline 
+
+Conv + BNorm + Relu & 1x1 & 1024 \\ 
+Conv + BNorm + Relu & 1x1 & 1024 \\ 
+Conv + BNorm + Relu & 1x1 & 5 \\ 
+Softmax & & \\
+\hline 
+
+\end{tabular} 
 
 \end{document}
