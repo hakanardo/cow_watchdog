@@ -28,6 +28,10 @@ The cameras was calibrated to compensate for lens distortion and rectified. Alth
 Finally a CNN was trained to detect the cows in the images, and statistics about how many cows and their distances/relation to each other was extracted. Using these statistics the XXX scientists can form queries to select time intervals of interest to watch, such as "show me video clips involving at least two cows with the neck of one cow closer than one meter to the body of the other".
 
 \section{CNN cow detector}
+
+hej ho Table \ref{tab:cownet} and Table \ref{tab:cowdirnet}
+
+\begin{table}
 \begin{tabular}{|l|c|c|}
 \hline 
 \textbf{Layer type} & \textbf{Kernel size} & \textbf{Channels} \\ 
@@ -63,5 +67,27 @@ Softmax & & \\
 \hline 
 
 \end{tabular} 
+\caption{CNN architecture used to detect different parts of the cows. The input is an image of any size with 3 rgb channels scaled to the range $ 0\cdots1 $. The output is probability map segmenting the entire image into 5 classes: Ground, Cow Front, Cow Middle, Cow Back and Cow Head.}
+\label{tab:cownet}
+\end{table}
+ok
+
+\begin{table}
+\begin{tabular}{|l|c|c|}
+\hline 
+\textbf{Layer type} & \textbf{Kernel size} & \textbf{Channels} \\ 
+\hline 
+
+MaxPool(stride=1) & 3x3 &  \\ 
+Log & & \\
+Conv + BNorm + Relu & 13x13 & 33 \\ 
+Softmax & & \\
+\hline 
+\end{tabular}
+\caption{CNN architecture use to detect the cows and their orientation. The input is the 5 channel probability map from the part detector with the last MaxPool removed to increase resolution. The output is a probability map that segments the image into either background or cow in one of 32 different orientations.}
+\label{tab:cowdirnet}
+\end{table}
+
+ok
 
 \end{document}
