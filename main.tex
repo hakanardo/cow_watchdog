@@ -106,7 +106,42 @@ error flattens. The landmark CNN uses only valid outputs from the convolutional 
 layers while the cow detector keeps the same resolution to also detect cows that are 
 slightly outside the image.
 
-Once the net was trained, the last MaxPool layer was removed to increase the output resolution. Then the net was then applied to the full rectified training images producing probability maps of $44\times 46\times 5$ pixels. These were used as training examples for the cow detection net (without splittem them into patches). Output ground truth probability maps of $44\times 46\times 33$ pixels were constructed from the annotations. 
+Once the net was trained, the last MaxPool layer was removed to increase the output resolution. Then the net was then applied to the full rectified training images producing probability maps of $44\times 46\times 5$ pixels. These were used as training examples for the cow detection net (without splittem them into patches). Output ground truth probability maps of $44\times 46\times 33$ pixels were constructed from the annotations by projecting each cow, $i$, center point into the probability map as $\left( x_i, y_i \right)$ and calculate it's angle $a_i$ as the angle of line between front middle and back middle. Then a binary $44\times 46\times 33$ mask $B\left( x, y, c \right)$ is formed, containing a background mask
+\begin{equation}
+B\left( x, y, 32 \right) = \left\lbrace 
+\begin{array}{clc}
+0 & \text{if} & 
+\begin{array}{c}
+ \lfloor x_i \rfloor \leq x \leq \lceil x_i \rceil \\ 
+ \lfloor y_i \rfloor \leq y \leq \lceil y_i \rceil
+\end{array} 
+\\ 
+1 & \multicolumn{2}{l}{\text{otherwise}} 
+\end{array} 
+\right. 
+\end{equation}
+and $32$ orientation masks
+\begin{equation}
+B\left( x, y, c \right) = \left\lbrace 
+\begin{array}{clc}
+1 & \text{if} & 
+\begin{array}{c}
+ \lfloor x_i \rfloor-1 \leq x \leq \lceil x_i \rceil+1 \\ 
+ \lfloor y_i \rfloor-1 \leq y \leq \lceil y_i \rceil+1 \\
+ \mathrm{adist}\left(\frac{2c\pi}{32}, c_i\right) < \frac{2\pi}{32} \\
+\end{array} 
+\\ 
+0 & \multicolumn{2}{l}{\text{otherwise}} 
+\end{array} 
+\right. 
+\end{equation}
+for $0\leq c \leq 31$ and all $i$. The $\mathrm{adist}$ function calculates the absolute angular distance between two angles. The ground truth probability masks are then produced by normalising $B$ to sum to $1$ for each pixel. Finally, the network is trained using the same hyper parameters as described above.
+
+\section{Watchdog}
+
+\section{Results}
+
+\section{Conclutions}
 
 \bibliographystyle{plain}
 \bibliography{main}
