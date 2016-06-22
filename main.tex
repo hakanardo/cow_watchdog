@@ -21,7 +21,7 @@ In this paper the goal is to take the first step towards an automated system. Th
 
 The pilot study used to develop this watchdog was made in a dairy barn in the south of Sweden with 252 Swedish Holstein cows. They were milked by four automated milking robots, which had a common waiting area (6x18 meters). This waiting area is an open space which several cows ready for milking are allowed to enter. They will then interact with each other in order to decide who are allowed to enter each of the milking robots first.
 
-Video recordings were made using three Axis M3006-V cameras with a wide angle of 134 degrees and placed at 3.6 meter height pointing straight down to optimize overview over the study area. There is a significant overlap between the camera images in order to not miss events taking place at the border between the cameras.
+Video recordings were made using three Axis M3006-V cameras with a wide angle of 134 degrees and placed at 3.6 meter height pointing straight down to optimize overview over the study area. There is a significant overlap between the camera images in order to not miss events taking place at the border between the cameras. In total 2315 hours (1 month) of 800x600 video in 16 fps was collected.
 
 The cameras was calibrated to compensate for lens distortion and rectified. Although the cameras was physically mounted to point fairly straight down, they was still slightly tiled. This tilting was synthetically removed during this rectification. The end result of this calibration is video images where the cows have the same size regardless of where in the image they appear. Also the scan-lines of the three different cameras becomes aligned which allows them to be stitched together to form an overview of the entire waiting area.
 
@@ -29,12 +29,17 @@ Finally a CNN was trained to detect the cows in the images, and statistics about
 
 \section{CNN cow detector}
 
-hej ho Table \ref{tab:cownet} and Table \ref{tab:cowdirnet}
+A random subset of the full recording consisting of 1722 images was manually annotated. This subset contained in total 6399 cows. Each cow was annotated with seven landmark points: head, left and right shoulder, front middle, left and right hip and back middle. In addition to that one additional landmark "cow center" was defined as the mean of front middle and back middle. This data was then used to train a CNN detector.
+
+The detector was split into two step. The first step is a fully convolutional CNN that detects the landmarks in the image. Currently only four of the landmarks was used to speed up the experiments, but extending to use all 8 is straight forward. The architecture of this network is a fully convolutional version of VGG with batch normalisation added after each convolution step. Details are shown in Table \ref{tab:cownet}.
+
+The second step is another CNN that works with the probability map produced by the first as input and tries to detect the cows and their orientations. The full circle is divided into 32 equally spaced orientations which generates 32 different oriented cow classes. In addition to that there is the no cow class, which makes the total number of classes of this CNN 33. The input probabilities turned into log likelihoods as it makes more sense when summing them together. Then the network consists of a single $ 13 \times 13 $ convolutional layer. Details are shown in Table \ref{tab:cowdirnet}.
 
 \begin{table}
+\begin{center}
 \begin{tabular}{|l|c|c|}
 \hline 
-\textbf{Layer type} & \textbf{Kernel size} & \textbf{Channels} \\ 
+\textbf{Layer type} & \textbf{Size} & \textbf{Channels} \\ 
 \hline 
 
 Conv + BNorm + Relu & 3x3 & 32 \\ 
@@ -67,15 +72,16 @@ Softmax & & \\
 \hline 
 
 \end{tabular} 
-\caption{CNN architecture used to detect different parts of the cows. The input is an image of any size with 3 rgb channels scaled to the range $ 0\cdots1 $. The output is probability map segmenting the entire image into 5 classes: Ground, Cow Front, Cow Middle, Cow Back and Cow Head.}
+\end{center}
+\caption{CNN architecture used to detect different landmarks of the cows. The input is an image of any size with 3 rgb channels scaled to the range $ 0\cdots1 $. The output is probability map segmenting the entire image into 5 classes: Ground, Cow front middle, Cow center, Cow back middle and Cow head.}
 \label{tab:cownet}
 \end{table}
-ok
 
 \begin{table}
+\begin{center}
 \begin{tabular}{|l|c|c|}
 \hline 
-\textbf{Layer type} & \textbf{Kernel size} & \textbf{Channels} \\ 
+\textbf{Layer type} & \textbf{Size} & \textbf{Channels} \\ 
 \hline 
 
 MaxPool(stride=1) & 3x3 &  \\ 
@@ -84,10 +90,11 @@ Conv + BNorm + Relu & 13x13 & 33 \\
 Softmax & & \\
 \hline 
 \end{tabular}
-\caption{CNN architecture use to detect the cows and their orientation. The input is the 5 channel probability map from the part detector with the last MaxPool removed to increase resolution. The output is a probability map that segments the image into either background or cow in one of 32 different orientations.}
+\end{center}
+\caption{CNN architecture use to detect the cows and their orientation. The input is the 5 channel probability map from the landmark detector with the last MaxPool removed to increase resolution. The output is a probability map that segments the image into either background or cow in one of 32 different orientations.}
 \label{tab:cowdirnet}
 \end{table}
 
-ok
+
 
 \end{document}
