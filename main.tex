@@ -19,15 +19,15 @@ Scientists working with animal behaviour and welfare are interested in studying 
 
 In this paper the goal is to take the first step towards an automated system. The study area is filmed using video cameras. Then an automated watchdog system will remove a lot of the uninteresting parts of the recorded video material. The remaining video sequences will still have to be studied by experts, but the time spent looking at uninteresting video sequences will be significantly reduced.
 
-The pilot study used to develop this watchdog was made in a dairy barn in the south of Sweden with 252 Swedish Holstein cows. They were milked by four automated milking robots, which had a common waiting area (6x18 meters). This waiting area is an common space which cows that are ready for milking could anter at any point in time. They will then interact with each other  in order to decide who are allowed to enter each of the milking robots first. These interactions, their number and ratio between positive and negative behavioural events are highly dependent on cow's rank in a herd hierarchy. Therefore, studies explaining the social component of animal behaviour are of great importance for animal welfare abd management. 
+The pilot study used to develop this watchdog was made in a dairy barn in the south of Sweden with 252 Swedish Holstein cows. They were milked by four automated milking robots, which had a common waiting area (6x18 meters). This waiting area is an common space which cows that are ready for milking could enter at any point in time. They will then interact with each other  in order to decide who are allowed to enter each of the milking robots first. These interactions, their number and ratio between positive and negative behavioural events are highly dependent on cow's rank in a herd hierarchy. Therefore, studies explaining the social component of animal behaviour are of great importance for animal welfare and management.
 
-Video recordings were made using three Axis M3006-V cameras with a wide angle of 134 degrees and placed at 3.6 meter height pointing straight down to optimize overview over the study area. There is a significant overlap between the camera images in order to not miss events taking place at the border between the cameras. In total 2315 hours (1 month) of 800x600 video in 16 fps was collected.
+Video recordings were made using three Axis M3006-V cameras with a wide angle of 134 degrees and placed at 3.6 meter height pointing straight down to optimize overview over the study area. There is a significant overlap between the camera images in order to not miss events taking place at the border between the cameras. In total 2315 hours (1 month) of 800x600 video in 16 Frames Per Second (FPS) was collected.
 
 The cameras was calibrated to compensate for lens distortion and rectified. Although the cameras was physically mounted to point fairly straight down, they was still slightly tilted. This tilting was synthetically removed during this rectification. The end result of this calibration is video images where the cows have the same size regardless of where in the image they appear. Also the scan-lines of the three different cameras becomes aligned which allows them to be stitched together to form an overview of the entire waiting area.
 
-Finally a Convolution Neural Network (CNN)  was trained to detect the cows in the images, and statistics about how many cows and their distances/relation to each other was extracted. Using these statistics the XXX scientists can form queries to select time intervals of interest to watch, such as "show me video clips involving at least two cows with the neck of one cow closer than one meter to the body of the other".
+Finally a Convolution Neural Network (CNN)  was trained to detect the cows in the images, and statistics about how many cows and their distances/relation to each other was extracted. Using these statistics the (XXX: check proper definition of scientist) animal welfare scientists can form queries to select time intervals of interest to watch, such as "show me video clips involving at least two cows with the neck of one cow closer than one meter to the body of the other".
 
-\section{Brief technical about calibration apporach?}
+\section{Brief technical about calibration approach?}
 
 \section{CNN cow detector}
 
@@ -150,4 +150,4 @@ XXX: Tracking?
 \bibliographystyle{plain}
 \bibliography{main}
 
-\end{document} 
+\end{document}
