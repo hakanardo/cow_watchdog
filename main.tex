@@ -15,19 +15,37 @@ Cows are interacting...
 
 \section{Introduction}
 
-Scientists working with animal behaviour and welfare are interested in studying the social interactions between cows in dairy farms. Typically that is performed by defining a set of interaction events such as head butting, body pushing, social licking etc. and writing very detailed protocol with description for every event. Then an expert studies an area of interest for large amount of time and counts the number of each behavioural event happening within pre-defined time-bouts. Some of these behavioural events are quite rare, which means that a lot of expert time have to be spent in looking at raw video data in order to find potentially interesting sequences.
+Scientists working with animal behaviour and welfare are interested in studying the social interactions between cows in dairy farms. Typically that is performed by defining a set of interaction events such as head butting, body pushing, social licking etc. and writing very detailed protocol with the description for every event. Then an expert studies an area of interest for large amount of time and counts the number of each behavioural event occuring for the whole duration of the video sequence/sequences used for the particular study. Some of these behavioural events are quite rare, which means that a lot of expert time have to be spent in looking at raw video data in order to find potentially interesting sequences that could be used for further annotations.
 
-In this paper the goal is to take the first step towards an automated system. The study area is filmed using video cameras. Then an automated watchdog system will remove a lot of the uninteresting parts of the recorded video material. The remaining video sequences will still have to be studied by experts, but the time spent looking at uninteresting video sequences will be significantly reduced.
+In this paper the goal is to take the first step towards an automated system. The study area is filmed using video cameras. Then an automated watchdog system will remove a lot of the irrelevant parts of the recorded video material. The remaining video sequences will still have to be studied by experts, but the time spent looking at uninteresting video sequences will be significantly reduced.
 
-The pilot study used to develop this watchdog was made in a dairy barn in the south of Sweden with 252 Swedish Holstein cows. They were milked by four automated milking robots, which had a common waiting area (6x18 meters). This waiting area is an common space which cows that are ready for milking could enter at any point in time. They will then interact with each other  in order to decide who are allowed to enter each of the milking robots first. These interactions, their number and ratio between positive and negative behavioural events are highly dependent on cow's rank in a herd hierarchy. Therefore, studies explaining the social component of animal behaviour are of great importance for animal welfare and management.
+The pilot study used to develop this watchdog was made in a dairy barn in the south of Sweden with 252 Swedish Holstein cows. They were milked by four automated milking robots, which had a common waiting area (6x18 meters). This waiting area is an common space which cows that are ready for milking could enter at any point in time. They will then interact with each other  in order to decide who are allowed to enter each of the milking robots first. These interactions, their number and ratio between positive and negative behavioural events are highly dependent on cow's rank in a herd hierarchy. Therefore, studies explaining the social component of animal behaviour are of great importance for animal welfare and management as they could help in avoiding unnecessary aggression.
 
 Video recordings were made using three Axis M3006-V cameras with a wide angle of 134 degrees and placed at 3.6 meter height pointing straight down to optimize overview over the study area. There is a significant overlap between the camera images in order to not miss events taking place at the border between the cameras. In total 2315 hours (1 month) of 800x600 video in 16 Frames Per Second (FPS) was collected.
 
-The cameras was calibrated to compensate for lens distortion and rectified. Although the cameras was physically mounted to point fairly straight down, they was still slightly tilted. This tilting was synthetically removed during this rectification. The end result of this calibration is video images where the cows have the same size regardless of where in the image they appear. Also the scan-lines of the three different cameras becomes aligned which allows them to be stitched together to form an overview of the entire waiting area.
+The cameras were calibrated to compensate for lens distortion and rectification. Although the cameras were physically mounted to point fairly straight down, they were still slightly tilted. This tilting was synthetically removed during the rectification. The end result of this calibration is video images where the cows have the same size regardless of where in the image they appear. Also the scan-lines of the three different cameras become aligned, which allows them to be stitched together to form an overview of the entire waiting area.
 
-Finally a Convolution Neural Network (CNN)  was trained to detect the cows in the images, and statistics about how many cows and their distances/relation to each other was extracted. Using these statistics the (XXX: check proper definition of scientist) animal welfare scientists can form queries to select time intervals of interest to watch, such as "show me video clips involving at least two cows with the neck of one cow closer than one meter to the body of the other".
+Finally a Convolution Neural Network (CNN)  was trained to detect the cows in the images, and statistics about how many cows and their distances/relation to each other was extracted. Using these statistics, scientists working in a field of animal behaviour could form queries to select time intervals of interest to watch, such as "show me video clips involving at least two cows with the neck of one cow closer than one meter to the body of the other".
 
 \section{Brief technical about calibration approach?}
+
+In order to fulfil the specific research questions regarding dairy barn slatted floor and distribution of animals on it,
+correct transition of image coordinates into real-world coordinates was crucial. To assure that all the coordinates
+can be reliable and that the observer/algorithm will be able to correctly identify all the objects, three images were
+merged and synchronized after applying normalization algorithms. Setups with only one camera (even with wide
+observation angle) could suffer from a number of image artefacts (e.g. radial distortion, tangential distortion,
+occlusion between objects/cows) therefore; it was decided to use three cameras for a relatively small region of
+interest (ROI) in the waiting area.
+
+For this study, the classical pinhole camera model augmented with a lens distortion model was used for scene view
+reconstruction. The scene view was formed through the projection of 3D world points into the image
+plane and to assure correct disposition and perspective of objects in a merged image covering the ROI, we used
+number of planar markers to estimate scene homography and lens distortion. The camera calibration method
+developed by Tsai (1986) and further improved by Horn (2000) includes both interior and exterior orientations,
+corrections for the distortion and a scale factor for the reliable correlation between target and scene coordinates.
+The number of planar markers was used for the camera calibration on site (Figure 1). These markers were placed
+at the height of the virtual floor. This height was estimated to be 1.49 meters with a standard deviation of 0.05 by
+measuring twelve random cows in the study area.
 
 \section{CNN cow detector}
 
