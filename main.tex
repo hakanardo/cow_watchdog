@@ -29,6 +29,8 @@ Finally a Convolution Neural Network (CNN)  was trained to detect the cows in th
 
 \section{Brief technical about calibration approach?}
 
+FIXME: I'm afard I've used the old calibration here...
+
 In order to fulfil the specific research questions regarding dairy barn slatted floor and distribution of animals on it,
 correct transition of image coordinates into real-world coordinates was crucial. To assure that all the coordinates
 can be reliable and that the observer/algorithm will be able to correctly identify all the objects, three images were
@@ -53,7 +55,7 @@ A random subset of the full recording consisting of 1722 images was manually ann
 
 The detector was split into two step. The first step is a fully convolutional CNN that detects the landmarks in the image. Currently only four of the landmarks was used to speed up the experiments, but extending to use all 8 is straight forward. The architecture of this network is a fully convolutional version of VGG \cite{Simonyan14c} with batch normalization \cite{DBLP:journals/corr/IoffeS15} added after each convolution step. Details are shown in Table \ref{tab:cownet}.
 
-The second step is another CNN that works with the probability map produced by the first as input and tries to detect the cows and their orientations. The full circle is divided into 32 equally spaced orientations which generates 32 different oriented cow classes. In addition to that there is the no cow class, which makes the total number of classes of this CNN 33. The input probabilities turned into log likelihoods as it makes more sense when summing them together. Then the network consists of a single $ 13 \times 13 $ convolutional layer. Details are shown in Table \ref{tab:cowdirnet}.
+The second step is another CNN that works with the probability map produced by the first as input and tries to detect the cows and their orientations. The full circle is divided into 32 equally spaced orientations which generates 32 different oriented cow classes. In addition to that there is the no cow class, which makes the total number of classes of this CNN 33. The input probabilities was turned into log likelihoods as it makes more sense when summing them together. Then the network consists of a single $ 13 \times 13 $ convolutional layer. Details are shown in Table \ref{tab:cowdirnet}.
 
 \begin{table}
 \begin{center}
@@ -115,7 +117,7 @@ Softmax & & \\
 \label{tab:cowdirnet}
 \end{table}
 
-The landmark net were trained on patches of $150\times 150$ pixels extracted from the input images. This makes the output during training a single pixel. The positive examples were centred on the landmarks and randomly jittered $\pm 16$ pixels (as the distance between output pixels is $32$ input pixels). Negative patches where selected at centres more than $32$ pixels from any landmark. In addition to the positive and negative patches a set of don't care patches were selected at random centres at distances between $16$ and $32$ pixels from landmarks. The ground truth probability of these patches belong to the class of the landmark was set to $0.5$ and the probability that they are ground was set to $0.5$. In some cases several landmarks appears within $32$ pixels of the patch center. In that case the probability mass was distributed uniformly by all involved classes.
+The landmark net were trained on patches of $150\times 150$ pixels extracted from the input images. This makes the output during training a single pixel. The positive examples were centred on the landmarks and randomly jittered $\pm 16$ pixels (as the distance between output pixels is $32$ input pixels). Negative patches where selected at centres more than $32$ pixels from any landmark. In addition to the positive and negative patches a set of don't care patches were selected at random centres at distances between $16$ and $32$ pixels from landmarks. The ground truth probability of these patches belong to the class of the landmark was set to $0.5$ and the probability that they are ground was set to $0.5$. In some cases several landmarks appears within $32$ pixels of the patch center. In that case the probability mass was distributed uniformly among all involved classes.
 
 The weights of the convolutions are initiated using random samples draw from a Gaussian
 distribution truncated at $2\sigma$, with standard deviation $\sigma=\sqrt{\frac{2}{n}}$,
@@ -156,8 +158,6 @@ B\left( x, y, c \right) = \left\lbrace
 \right.
 \end{equation}
 for $0\leq c \leq 31$ and all $i$. The $\mathrm{adist}$ function calculates the absolute angular distance between two angles. The ground truth probability masks are then produced by normalising $B$ to sum to $1$ for each pixel. Finally, the network is trained using the same hyper parameters as described above.
-
-XXX: Tracking?
 
 \section{Watchdog}
 
