@@ -159,9 +159,8 @@ B\left( x, y, c \right) = \left\lbrace
 \end{equation}
 for $0\leq c \leq 31$ and all $i$. The $\mathrm{adist}$ function calculates the absolute angular distance between two angles. The ground truth probability masks are then produced by normalising $B$ to sum to $1$ for each pixel. Finally, the network is trained using the same hyper parameters as described above.
 
-\section{Watchdog}
-
-\section{Results}
+\section{Watchdog evaluation}
+To evaluate the system, the 6400 frames spread over the entire recording were processed by the CNN. A simple watchdog extracting frames containing two or more cows were implemented. That would be the most basic requirement for an interaction, and already with this simple criteria it was possible to discard 38 \% of the recordings as uninteresting. 10 random frames selected by the watchdog and 10 random frames discarded by the watchdog were automatically annotated by using the CNN results and studied manually. All of them was correctly classified by the wachdog. Cows intersecting the borders were ignored in the sens that the images was considered correct regardless of wheter such border cases was detected or not.
 
 \section{Conclusions}
 
