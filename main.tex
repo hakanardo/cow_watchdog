@@ -4,6 +4,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{graphicx}
 \author{Håkan Ardö, Oleksiy Guzhva, Mikael Nilsson}
 \title{Cow interaction watch dog}
 \begin{document}
@@ -159,8 +160,27 @@ B\left( x, y, c \right) = \left\lbrace
 \end{equation}
 for $0\leq c \leq 31$ and all $i$. The $\mathrm{adist}$ function calculates the absolute angular distance between two angles. The ground truth probability masks are then produced by normalising $B$ to sum to $1$ for each pixel. Finally, the network is trained using the same hyper parameters as described above.
 
+
+\begin{figure*}[tb]
+\begin{center}
+  \includegraphics[width=0.3\textwidth]{ok/1419422172315416.jpg}
+  \includegraphics[width=0.3\textwidth]{ok/1419630968631761.jpg}
+  \includegraphics[width=0.3\textwidth]{ok/1420251135794580.jpg}
+
+\vspace{1mm}
+
+  \includegraphics[width=0.3\textwidth]{bad/1419743355933936.jpg}
+  \includegraphics[width=0.3\textwidth]{bad/1420050868326145.jpg}
+  \includegraphics[width=0.3\textwidth]{bad/1420185482574217.jpg}
+\end{center}
+  \caption{Results from the evaluation. Top row: Three images correctly interpretated (all cows detected and no extra detections). Bottom row: The three images were the errors were made (1 missed cow and two extra detections).}
+  \label{fig:res}
+\end{figure*}
+
 \section{Watchdog evaluation}
-To evaluate the system, the 6400 frames spread over the entire recording were processed by the CNN. A simple watchdog extracting frames containing two or more cows were implemented. That would be the most basic requirement for an interaction, and already with this simple criteria it was possible to discard 38 \% of the recordings as uninteresting. 10 random frames selected by the watchdog and 10 random frames discarded by the watchdog were automatically annotated by using the CNN results and studied manually. All of them was correctly classified by the wachdog. Cows intersecting the borders were ignored in the sens that the images was considered correct regardless of wheter such border cases was detected or not.
+To evaluate the system, the 6400 frames spread over the entire recording were processed by the CNN. A simple watchdog extracting frames containing two or more cows were implemented. That would be the most basic requirement for an interaction, and already with this simple criteria it was possible to discard 38 \% of the recordings as uninteresting. 50 random frames selected by the watchdog and 50 random frames discarded by the watchdog were automatically annotated by using the CNN results and studied manually. Cows intersecting the borders were ignored in the sens that the images was considered correct regardless of wheter such border cases was detected or not.
+
+97 \% of the images were perfectly interpretated, i.e. all cows present were detected and no extra detections. Two of the images with errors containd several detected cows and was thus correcly classified as containing two or more cows by the watchdog, resuting in a watchdog-hitrate for it of 99 \%. In totalt those 100 images contains 222 cows. One of those were not detected and 2 extra detections were made yielding a cow-hitrate of 99.6 \% with a false alarm rate of 0.9\%.
 
 \section{Conclusions}
 
