@@ -11,7 +11,9 @@
 \maketitle
 
 \begin{abstract}
-Cows are interacting...
+Animal behaviour and welfare can be studied by looking at social interactions between the animals. Video recordings of a scene of interest is often made and then watch by experts. However, the  interactions of interest are often fairly rare. To reduce the amount of time the experts spend on watching uninteresting video, this paper introduces an automated watchdog system that can discard some of this video. A pilot study on cows was made where a CNN detector was used to count the number of cows in the scene and discard video where less than two cows were present. This removed 38 \% of the recordings while only loosing 1 \% of the interesting video.
+
+
 \end{abstract}
 
 \section{Introduction}
@@ -26,29 +28,32 @@ Video recordings were made using three Axis M3006-V cameras with a wide angle of
 
 The cameras were calibrated to compensate for lens distortion and rectification. Although the cameras were physically mounted to point fairly straight down, they were still slightly tilted. This tilting was synthetically removed during the rectification. The end result of this calibration is video images where the cows have the same size regardless of where in the image they appear. Also the scan-lines of the three different cameras become aligned, which allows them to be stitched together to form an overview of the entire waiting area.
 
-Finally a Convolution Neural Network (CNN)  was trained to detect the cows in the images, and statistics about how many cows and their distances/relation to each other was extracted. Using the statistical data, scientists working in a field of animal behaviour could form queries to select particular time intervals to watch, such as "show me video clips involving at least two cows with the neck of one cow closer than one meter to the body of the other".
+Finally a Convolution Neural Network (CNN)  was trained to detect the cows in the images, and statistics about how many cows and their distances/relation to each other was extracted. Using that statistical data, scientists working in a field of animal behaviour could form queries to select particular time intervals to watch, such as "show me video clips involving at least two cows with the neck of one cow closer than one meter to the body of the other".
 
-\section{Brief technical about calibration approach?}
+\section{Camera calibration}
+Straight lines were manually annotated in the camera images. Focal length and lens distortion parameters for the camera model used in OpenCV were then  optimized until the lines projections were straight in the images. Some of these lines, typically from the walls, were long enough to pass through all three cameras. These lines were used to find the orientation of the cameras, again by local optimization until the projections of the lines into the different camera images agree.
 
-FIXME: I'm afard I've used the old calibration here...
-
-In order to fulfil the specific research questions regarding dairy barn slatted floor and distribution of animals on it,
-correct transition of image coordinates into real-world coordinates was crucial. To assure that all the coordinates
-can be reliable and that the observer/algorithm will be able to correctly identify all the objects, three images were
-merged and synchronized after applying normalization algorithms. Setups with only one camera (even with wide
-observation angle) could suffer from a number of image artefacts (e.g. radial distortion, tangential distortion,
-occlusion between objects/cows) therefore; it was decided to use three cameras for a relatively small region of
-interest (ROI) in the waiting area.
-
-For this study, the classical pinhole camera model augmented with a lens distortion model was used for scene view
-reconstruction. The scene view was formed through the projection of 3D world points into the image
-plane and to assure correct disposition and perspective of objects in a merged image covering the ROI, we used
-number of planar markers to estimate scene homography and lens distortion. The camera calibration method
-developed by Tsai (1986) and further improved by Horn (2000) includes both interior and exterior orientations,
-corrections for the distortion and a scale factor for the reliable correlation between target and scene coordinates.
-The number of planar markers was used for the camera calibration on site (Figure 1). These markers were placed
-at the height of the virtual floor. This height was estimated to be 1.49 meters with a standard deviation of 0.05 by
-measuring twelve random cows in the study area.
+%\section{Brief technical about calibration approach?}
+%
+%FIXME: I'm afard I've used the old calibration here...
+%
+%In order to fulfil the specific research questions regarding dairy barn slatted floor and distribution of animals on it,
+%correct transition of image coordinates into real-world coordinates was crucial. To assure that all the coordinates
+%can be reliable and that the observer/algorithm will be able to correctly identify all the objects, three images were
+%merged and synchronized after applying normalization algorithms. Setups with only one camera (even with wide
+%observation angle) could suffer from a number of image artefacts (e.g. radial distortion, tangential distortion,
+%occlusion between objects/cows) therefore; it was decided to use three cameras for a relatively small region of
+%interest (ROI) in the waiting area.
+%
+%For this study, the classical pinhole camera model augmented with a lens distortion model was used for scene view
+%reconstruction. The scene view was formed through the projection of 3D world points into the image
+%plane and to assure correct disposition and perspective of objects in a merged image covering the ROI, we used
+%number of planar markers to estimate scene homography and lens distortion. The camera calibration method
+%developed by Tsai (1986) and further improved by Horn (2000) includes both interior and exterior orientations,
+%corrections for the distortion and a scale factor for the reliable correlation between target and scene coordinates.
+%The number of planar markers was used for the camera calibration on site (Figure 1). These markers were placed
+%at the height of the virtual floor. This height was estimated to be 1.49 meters with a standard deviation of 0.05 by
+%measuring twelve random cows in the study area.
 
 \section{CNN cow detector}
 
