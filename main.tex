@@ -185,9 +185,11 @@ for $0\leq c \leq 31$ and all $i$. The $\mathrm{adist}$ function calculates the 
 \section{Watchdog evaluation}
 To evaluate the system, the 6400 frames spread over the entire recording were processed by the CNN. A simple watchdog extracting frames containing two or more cows were implemented. That would be the most basic requirement for an interaction, and already with this simple criteria it was possible to discard 38 \% of the recordings as uninteresting. 50 random frames selected by the watchdog and 50 random frames discarded by the watchdog were automatically annotated by using the CNN results and studied manually. Cows intersecting the borders were ignored in the sens that the images was considered correct regardless of wheter such border cases was detected or not.
 
-97 \% of the images were perfectly interpretated, i.e. all cows present were detected and no extra detections. Two of the images with errors containd several detected cows and was thus correcly classified as containing two or more cows by the watchdog, resuting in a watchdog-hitrate for it of 99 \%. In totalt those 100 images contains 222 cows. One of those were not detected and 2 extra detections were made yielding a cow-hitrate of 99.6 \% with a false alarm rate of 0.9\%.
+97 \% of the images were perfectly interpretated, i.e. all cows present were detected and no extra detections. Two of the images with errors containd several detected cows and was thus correcly classified as containing two or more cows by the watchdog, resuting in a watchdog-hitrate for it of 99 \%. In totalt those 100 images contains 222 cows. One of those were not detected and 2 extra detections were made yielding a cow-hitrate of 99.6 \% with a false alarm rate of 0.9\%. Some example detections are shown in Figure \ref{fig:res}.
 
 \section{Conclusions}
+
+A CNN cow detection system have been developed. It can detect and cont the cows present in the image with high precision. 97 \% of the test images were perfectly interpretated in the sense that the system was able to place a rotated rectangle on each cows and nowhere else, c.f. Figure \ref{fig:res}. This detector was used to discard 38 \% of the recorded video as uninteresting while only loosing 1 \% of interesting video.
 
 \bibliographystyle{plain}
 \bibliography{main}
