@@ -18,7 +18,7 @@
 \maketitle
 
 \begin{abstract}
-Animal behaviour and welfare can be studied by looking at social interactions between the animals. Video recordings of a scene of interest is often made and then watch by experts. However, the  interactions of interest are often fairly rare. To reduce the amount of time the experts spend on watching uninteresting video, this paper introduces an automated watchdog system that can discard some of this video. A pilot study on cows was made where a CNN detector was used to count the number of cows in the scene and discard video where less than two cows were present. This removed 38 \% of the recordings while only loosing 1 \% of the interesting video.
+Animal behaviour and welfare can be studied by looking at social interactions between the animals. Video recordings of a scene of interest is often made and then watched/evaluated by experts. However, the  interactions of interest are often fairly rare. To reduce the amount of time the experts spend on watching uninteresting video, this paper introduces an automated watchdog system that can discard some of the recorded video material. A pilot study on cows was made where a CNN detector was used to count the number of cows in the scene and discard video where less than two cows were present. This removed 38 \% of the recordings while only loosing 1 \% of the interesting video.
 
 
 \end{abstract}
@@ -66,7 +66,7 @@ Straight lines were manually annotated in the camera images. Focal length and le
 
 A random subset of the full recording consisting of 1722 images was manually annotated. This subset contained in total 6399 cows. Each cow was annotated with seven landmark points: head, left and right shoulder, front middle, left and right hip and back middle. In addition to that one additional landmark "cow center" was defined as the mean of front middle and back middle. This data was then used to train a CNN detector.
 
-The detector was split into two step. The first step is a fully convolutional CNN that detects the landmarks in the image. Currently only four of the landmarks were used to speed up the experiments, but extending to use all seven is straightforward. The architecture of this network is a fully convolutional version of VGG \cite{Simonyan14c} with batch normalization \cite{DBLP:journals/corr/IoffeS15} added after each convolution step. Details are shown in Table \ref{tab:cownet}.
+The detector was split into two steps. The first step is a fully convolutional CNN that detects the landmarks in the image. Currently only four of the landmarks were used to speed up the experiments, but extending to use all seven is straightforward. The architecture of this network is a fully convolutional version of VGG \cite{Simonyan14c} with batch normalization \cite{DBLP:journals/corr/IoffeS15} added after each convolution step. Details are shown in Table \ref{tab:cownet}.
 
 The second step is another CNN that works with the probability map produced by the first as input and tries to detect the cows and their orientations. The full circle is divided into 32 equally spaced orientations which generates 32 different oriented cow classes. In addition to that there is the no cow class, which makes the total number of classes of this CNN 33. The input probabilities was turned into log likelihoods as it makes more sense when summing them together. Then the network consists of a single $ 13 \times 13 $ convolutional layer. Details are shown in Table \ref{tab:cowdirnet}.
 
@@ -196,7 +196,7 @@ To evaluate the system, the 6400 frames spread over the entire recording were pr
 
 \section{Conclusions}
 
-A CNN cow detection system have been developed. It can detect and cont the cows present in the image with high precision. 97 \% of the test images were perfectly interpreted in the sense that the system was able to place a rotated rectangle on each cows and nowhere else, c.f. Figure \ref{fig:res}. This detector was used to discard 38 \% of the recorded video as uninteresting while only loosing 1 \% of interesting video.
+A CNN cow detection system have been developed. It can detect and count the cows present in the image with high precision. 97 \% of the test images were perfectly interpreted in the sense that the system was able to place a rotated rectangle on each cows and nowhere else, c.f. Figure \ref{fig:res}. This detector was used to discard 38 \% of the recorded video as uninteresting while only loosing 1 \% of interesting video.
 
 \bibliographystyle{plain}
 \bibliography{main}
