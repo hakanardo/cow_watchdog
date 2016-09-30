@@ -18,7 +18,7 @@
 \maketitle
 
 \begin{abstract}
-Cow behaviour and welfare could be studied/assessed by looking at different interactions occurring between the animals. These studies register subtle changes in cows' behaviour and correlations with their health/welfare. Therefore, by explaining the social component of cow behaviour it is possible to avoid unnecessary aggression between animals and improve their being.  Video recordings of a scene of interest are often made and then watched/evaluated by experts. However, the  interactions of interest are often fairly rare. To reduce the amount of time the experts spend on watching the uninteresting video, this paper introduces an automated watchdog system that can discard some of the recorded video material. A pilot study on cows was made where a Convolutional Neural Network (CNN) detector was used to count the number of cows in the scene and discard video where less than two cows were present. This removed 38 \% of the recordings while only losing 1 \% of the interesting video.
+Animal behaviour and welfare can be studied/assessed by looking at different interactions occurring between the animals. Video recordings of a scene of interest are often made and then watched/evaluated by experts. However, the  interactions of interest are often fairly rare. To reduce the amount of time the experts spend on watching the uninteresting video, this paper introduces an automated watchdog system that can discard some of the recorded video material. A pilot study on cows was made where a Convolutional Neural Network (CNN) detector was used to count the number of cows in the scene and discard video where less than two cows were present. This removed 38 \% of the recordings while only losing 1 \% of the interesting video.
 
 
 \end{abstract}
@@ -38,7 +38,7 @@ The cameras were calibrated to compensate for lens distortion and rectification.
 Finally, a Convolution Neural Network (CNN)  was trained to detect the cows in the images, and statistics about how many cows and their distances/relation to each other was extracted. Using that statistical data, scientists working in a field of animal behaviour could form queries to select particular time intervals to watch, such as "show me video clips involving at least two cows with the neck of one cow closer than one meter to the body of the other".
 
 \section{Camera calibration}
-Straight lines were manually annotated in the camera images. Focal length and lens distortion parameters for the camera model used in OpenCV were then  optimised until the lines projections were straight in the images. Some of these lines, typically from the walls, were long enough to pass through all three cameras. These lines were used to find the orientation of the cameras, again by local optimisation until the projections of the lines into the different camera images agree.
+Straight lines were manually annotated in the camera images. Focal length and lens distortion parameters for the camera model used in OpenCV version 2.4.9.1 were then  optimised until the lines projections were straight in the images. Some of these lines, typically from the walls, were long enough to pass through all three cameras. These lines were used to find the orientation of the cameras, again by local optimisation until the projections of the lines into the different camera images agree.
 
 %\section{Brief technical about calibration approach?}
 %
