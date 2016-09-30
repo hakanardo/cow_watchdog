@@ -116,9 +116,22 @@ Softmax & & \\
 
 \end{tabular}
 \end{center}
-\caption{CNN architecture used to detect different landmarks of the cows. The input is an image of any size with 3 rgb channels scaled to the range $\left[0,\,1\right]$. The output is probability map segmenting the entire image into 5 classes: Ground, Cow front middle, Cow center, Cow back middle and Cow head.}
+\caption{CNN architecture for landmark detection. 
+%The input is an image of any size with 3 rgb channels scaled to the range $\left[0,\,1\right]$. The output is probability map segmenting the entire image into 5 classes: Ground, Cow front middle, Cow center, Cow back middle and Cow head.
+}
 \label{tab:cownet}
 \end{table}
+
+The landmark net was trained on patches of $150\times 150$ pixels extracted from the input images. This makes the output during training a single pixel. The positive examples were centred on the landmarks and randomly jittered $\pm 16$ pixels (as the distance between output pixels is $32$ input pixels). Negative patches were selected at centres more than $32$ pixels from any landmark. In addition to the positive and negative patches a set of do not care patches were selected at random centres at distances between $16$ and $32$ pixels from landmarks. The ground truth probability of these patches belong to the class of the landmark was set to $0.5$ and the probability that they are ground was set to $0.5$. In some cases, several landmarks appear within $32$ pixels of the patch centre. In that case, the probability mass was distributed uniformly among all involved classes.
+
+The weights of the convolutions are initiated using random samples draw from a Gaussian
+distribution truncated at $2\sigma$, with standard deviation $\sigma=\sqrt{\frac{2}{n}}$,
+where $n$ is the number of inputs\cite{DBLP:journals/corr/HeZR015}. The networks are regularised with weight decay of
+$0.0001$ and optimised using stochastic gradient descent with $0.9$ momentum. The
+learning rate is initiated to $1.0$ and reduced by a factor $10$ each time the validation
+error flattens. The landmark CNN uses only valid outputs from the convolutional and maxpool
+layers while the cow detector keeps the same resolution to also detect cows that are
+slightly outside the image.
 
 \begin{table}
 \begin{center}
@@ -134,20 +147,27 @@ Softmax & & \\
 \hline
 \end{tabular}
 \end{center}
-\caption{CNN architecture use to detect the cows and their orientation. The input is the 5 channel probability map from the landmark detector with the last MaxPool removed to increase resolution. The output is a probability map that segments the image into either background or cow in one of 32 different orientations.}
+\caption{CNN architecture to detect oriented cows
+%cows and their orientation. The input is the 5 channel probability map from the landmark detector with the last MaxPool removed to increase resolution. The output is a probability map that segments the image into either background or cow in one of 32 different orientations.
+}
 \label{tab:cowdirnet}
 \end{table}
 
-The landmark net was trained on patches of $150\times 150$ pixels extracted from the input images. This makes the output during training a single pixel. The positive examples were centred on the landmarks and randomly jittered $\pm 16$ pixels (as the distance between output pixels is $32$ input pixels). Negative patches were selected at centres more than $32$ pixels from any landmark. In addition to the positive and negative patches a set of do not care patches were selected at random centres at distances between $16$ and $32$ pixels from landmarks. The ground truth probability of these patches belong to the class of the landmark was set to $0.5$ and the probability that they are ground was set to $0.5$. In some cases, several landmarks appear within $32$ pixels of the patch centre. In that case, the probability mass was distributed uniformly among all involved classes.
+\begin{figure*}[tb]
+\begin{center}
+  \includegraphics[width=0.3\textwidth]{ok/1419422172315416.jpg}
+  \includegraphics[width=0.3\textwidth]{ok/1419630968631761.jpg}
+  \includegraphics[width=0.3\textwidth]{ok/1420251135794580.jpg}
 
-The weights of the convolutions are initiated using random samples draw from a Gaussian
-distribution truncated at $2\sigma$, with standard deviation $\sigma=\sqrt{\frac{2}{n}}$,
-where $n$ is the number of inputs\cite{DBLP:journals/corr/HeZR015}. The networks are regularised with weight decay of
-$0.0001$ and optimised using stochastic gradient descent with $0.9$ momentum. The
-learning rate is initiated to $1.0$ and reduced by a factor $10$ each time the validation
-error flattens. The landmark CNN uses only valid outputs from the convolutional and maxpool
-layers while the cow detector keeps the same resolution to also detect cows that are
-slightly outside the image.
+\vspace{1mm}
+
+  \includegraphics[width=0.3\textwidth]{bad/1419743355933936.jpg}
+  \includegraphics[width=0.3\textwidth]{bad/1420050868326145.jpg}
+  \includegraphics[width=0.3\textwidth]{bad/1420185482574217.jpg}
+\end{center}
+  \caption{Results from the evaluation. Top row: Three images correctly interpreted (all cows detected and no extra detections). Bottom row: The three images were the errors were made (1 missed cow and two extra detections).}
+  \label{fig:res}
+\end{figure*}
 
 Once the net was trained, the last maxpool layer was removed to increase the output resolution. The net was then applied to the full rectified training images producing probability maps of $44\times 46\times 5$ pixels. These were used as training examples for the cow detection net (without splitting them into patches). Output ground truth probability maps of $44\times 46\times 33$ pixels were constructed from the annotations by projecting each cow, $i$, center point into the probability map as $\left( x_i, y_i \right)$ and calculate its angle $a_i$ as the angle of the line between front middle and back middle landmarks. Then a binary $44\times 46\times 33$ mask $B\left( x, y, c \right)$ is formed, containing a background mask
 \begin{equation}
@@ -180,23 +200,6 @@ B\left( x, y, c \right) = \left\lbrace
 \end{equation}
 for $0\leq c \leq 31$ and all $i$. The $\mathrm{adist}$ function calculates the absolute angular distance between two angles. The ground truth probability masks are then produced by normalising $B$ to sum to $1$ for each pixel. Finally, the network is trained using the same hyper parameters as described above.
 
-
-\begin{figure*}[tb]
-\begin{center}
-  \includegraphics[width=0.3\textwidth]{ok/1419422172315416.jpg}
-  \includegraphics[width=0.3\textwidth]{ok/1419630968631761.jpg}
-  \includegraphics[width=0.3\textwidth]{ok/1420251135794580.jpg}
-
-\vspace{1mm}
-
-  \includegraphics[width=0.3\textwidth]{bad/1419743355933936.jpg}
-  \includegraphics[width=0.3\textwidth]{bad/1420050868326145.jpg}
-  \includegraphics[width=0.3\textwidth]{bad/1420185482574217.jpg}
-\end{center}
-  \caption{Results from the evaluation. Top row: Three images correctly interpreted (all cows detected and no extra detections). Bottom row: The three images were the errors were made (1 missed cow and two extra detections).}
-  \label{fig:res}
-\end{figure*}
-
 \section{Watchdog evaluation}
 
 To evaluate the system, the 6400 frames spread over the entire recording were processed by the CNN. A simple watchdog extracting frames containing two or more cows were implemented. That would be the most basic requirement for an interaction, and already with this simple criteria, it was possible to discard 38 \% of the recordings as uninteresting. 50 random frames selected by the watchdog and 50 random frames discarded by the watchdog were automatically annotated by using the CNN results and studied manually. Cows intersecting the borders were ignored in the sense that the images were considered correct regardless of whether such border cases was detected or not.
@@ -211,6 +214,7 @@ The evaluation runs at 6.55 fps on a single Tesla K20m GPU, using single precisi
 A CNN cow detection system has been developed. It can detect and count the cows present in the image with high precision. 97 \% of the test images were perfectly interpreted in the sense that the system was able to place a rotated rectangle on each cow and nowhere else, c.f. Figure \ref{fig:res}. This detector was used to discard 38 \% of the recorded video as uninteresting while only loosing 1 \% of the interesting video.
 
 \bibliographystyle{plain}
+{\footnotesize
 \bibliography{main}
-
+}
 \end{document}
