@@ -194,6 +194,8 @@ To evaluate the system, the 6400 frames spread over the entire recording were pr
 
 97 \% of the images were perfectly interpreted, i.e. all cows present were detected and no extra detections. Two of the images with errors containing several detected cows and was thus correctly classified as containing two or more cows by the watchdog, resulting in a watchdog hit rate for it of 99 \%. In total, those 100 images contain 222 cows. One of those were not detected and 2 extra detections were made yielding a cow hit rate of 99.6 \% with a false alarm rate of 0.9\%. Some example detections are shown in Figure \ref{fig:res}.
 
+The evaluation runs at 6.55 fps on a single Tesla K20m GPU, using single precition floats.
+
 \section{Conclusions}
 
 A CNN cow detection system has been developed. It can detect and count the cows present in the image with high precision. 97 \% of the test images were perfectly interpreted in the sense that the system was able to place a rotated rectangle on each cow and nowhere else, c.f. Figure \ref{fig:res}. This detector was used to discard 38 \% of the recorded video as uninteresting while only loosing 1 \% of the interesting video.
