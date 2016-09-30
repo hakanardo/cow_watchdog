@@ -24,28 +24,30 @@ Animal behaviour and welfare can be studied/assessed by looking at different int
 
 \end{abstract}
 
+\vspace{-1mm}
 \section{Introduction}
+\vspace{-2mm}
 
-Scientists working with animal behaviour and welfare are interested in studying the social interactions between cows in dairy farms. Typically these studies performed by defining a set of interactions or events such as head butting, body pushing, social licking etc. and writing a very detailed protocol with the description of every event. Then an expert studies the area of interest for a large amount of time and counts the number of each behavioural event occurring for the whole duration of the video sequence/sequences used for the particular study \cite{MartinandBateson2007}. Some of these behavioural events are quite rare, which means that a lot of expert time have to be spent in looking at raw video data in order to find potentially interesting sequences that could be used for further annotations.
+Scientists working with animal behaviour and welfare are interested in studying the social interactions between cows in dairy farms. Due to the rapid development of the dairy industry and complexity of everyday farm workflow and also continuously increasing number of animals, visual assessment of individuals becomes ineffective and requires large investments of time \cite{Busseetal2015}. Typically these studies performed by defining a set of interactions or events such as head butting, body pushing, social licking etc. and writing a very detailed protocol with the description of every event. Then an expert studies the area of interest for a large amount of time and counts the number of each behavioural event occurring for the whole duration of the video sequence/sequences used for the particular study \cite{MartinandBateson2007}. Some of these behavioural events are quite rare, which means that a lot of expert time have to be spent in looking at raw video data in order to find potentially interesting sequences that could be used for further annotations.
 
 A number of recent studies on cow behaviour in the dairy barn environment were based on different GPS or wireless sensor network (WSN) solutions \cite{Nadimietal2012}. These products for behavioural monitoring are a definite step forward, which allows scientists to see spatial distribution of animals and to measure different levels of activity \cite{Nadimietal2012}. However, the number of behaviours that could be monitored with the position-based approach is limited. Therefore, new methods based on video surveillance and image analysis, which could extend the number of parameters for studying, are of great importance.
 
 In this paper, the goal is to take the first step towards an automated system for behavioural analysis. The study area is filmed using video cameras. Then an automated watchdog system will remove irrelevant parts (e.g. those, containing events that are not relevant or without animals in the scene) of the recorded video material. The remaining video sequences will still have to be studied by experts, but the time spent looking at uninteresting video sequences will be significantly reduced.
 
-The pilot study used to develop this watchdog was made in a dairy barn in the south of Sweden with 252 Swedish Holstein cows. Cows were milked by four automatic milking robots, which had a common waiting area (6x18 meters). This waiting area is a common space which cows that are ready for milking could enter at any point in time. They will then interact with each other  in order to decide who are allowed to enter each of the milking robots and in which order. A direct relationship between cows' inter-cow distance and their aggressive behavioural patterns was demonstrated by \cite{DeVriesetal2004}. Other studies \cite{Hemsworth2003, Kilgour2012} showed inevitable effects of inferior animal welfare connected to the restrained performance of their natural behaviour. Therefore, early diagnostics of unconditional changes in animal behaviour when linked to health and welfare could not only save time and money for the farmer but also decrease the production pressure for every animal in the barn \cite{Polikarpusetal2015}.
+The pilot study used to develop this watchdog was made in a dairy barn in the south of Sweden with 252 Swedish Holstein cows. Cows were milked by four automatic milking robots, which had a common waiting area (6x18 meters). This waiting area is a common space which cows that are ready for milking could enter at any point in time. They will then interact with each other  in order to decide who are allowed to enter each of the milking robots and in which order. These interactions, their number and ratio between positive and negative behavioural events are highly dependent on cow's rank in a herd hierarchy. A direct relationship between cows' inter-cow distance and their aggressive behavioural pattern was demonstrated by \cite{DeVriesetal2004}. Other studies \cite{Hemsworth2003, Kilgour2012} showed inevitable effects of inferior animal welfare connected to the restrained performance of their natural behaviour. Therefore, early diagnostics of unconditional changes in animal behaviour when linked to health and welfare could not only save time and money for the farmer but also decrease the production pressure for every animal in the barn \cite{Polikarpusetal2015}.
 
-
-\section{Experimental setup}
-
+\vspace{-1mm}
+\subsection{Experimental setup}
+\vspace{-2mm}
 Video recordings were made using three Axis M3006-V cameras with a wide angle of 134 degrees that were placed at the 3.6-meter height, pointing straight down to optimise overview over the study area. There is a significant overlap between the camera images in order to not miss events taking place at the border between the cameras. In total 2315 hours (1 month) of 800x600 video in 16 Frames Per Second (FPS), was collected.
 
 The cameras were calibrated to compensate for lens distortion and rectification. Although the cameras were physically mounted to point fairly straight down, they were still slightly tilted. This tilting was synthetically removed during the rectification. The end result of this calibration is video images where the cows have the same size regardless of where in the image they appear. Also, the scan-lines of the three different cameras become aligned, which allows them to be stitched together to form an overview of the entire waiting area.
 
 Finally, a Convolution Neural Network (CNN)  was trained to detect the cows in the images, and statistics about how many cows and their distances/relation to each other was extracted. Using that statistical data, scientists working in a field of animal behaviour could form queries to select particular time intervals to watch, such as "show me video clips involving at least two cows with the neck of one cow closer than one meter to the body of the other".
 
-
+\vspace{-1mm}
 \section{Camera calibration}
-
+\vspace{-2mm}
 Straight lines were manually annotated in the camera images. Focal length and lens distortion parameters for the camera model used in OpenCV version 2.4.9.1 were then  optimised until the lines projections were straight in the images. Some of these lines, typically from the walls, were long enough to pass through all three cameras. These lines were used to find the orientation of the cameras, again by local optimisation until the projections of the lines into the different camera images agree.
 
 %\section{Brief technical about calibration approach?}
@@ -70,8 +72,9 @@ Straight lines were manually annotated in the camera images. Focal length and le
 %at the height of the virtual floor. This height was estimated to be 1.49 meters with a standard deviation of 0.05 by
 %measuring twelve random cows in the study area.
 
+\vspace{-1mm}
 \section{CNN cow detector}
-
+\vspace{-2mm}
 A random subset of the full recording consisting of 1722 images was manually annotated. This subset contained in total 6399 cows. Each cow was annotated with seven landmark points: head, left and right shoulder, front middle, left and right hip and back middle. In addition to that one additional landmark "cow centre" was defined as the mean of front middle and back middle. This data was then used to train a CNN detector.
 
 The detector was split into two steps. The first step is a fully convolutional CNN that detects the landmarks in the image. Currently, only four of the landmarks were used to speed up the experiments, but extending to use all seven is straightforward. The architecture of this network is a fully convolutional version of VGG \cite{Simonyan14c} with batch normalisation \cite{DBLP:journals/corr/IoffeS15} added after each convolution step. Details are shown in Table \ref{tab:cownet}.
@@ -155,15 +158,15 @@ Softmax & & \\
 
 \begin{figure*}[tb]
 \begin{center}
-  \includegraphics[width=0.3\textwidth]{ok/1419422172315416.jpg}
-  \includegraphics[width=0.3\textwidth]{ok/1419630968631761.jpg}
-  \includegraphics[width=0.3\textwidth]{ok/1420251135794580.jpg}
+  \includegraphics[width=0.25\textwidth]{ok/1419422172315416.jpg}
+  \includegraphics[width=0.25\textwidth]{ok/1419630968631761.jpg}
+  \includegraphics[width=0.25\textwidth]{ok/1420251135794580.jpg}
 
 \vspace{1mm}
 
-  \includegraphics[width=0.3\textwidth]{bad/1419743355933936.jpg}
-  \includegraphics[width=0.3\textwidth]{bad/1420050868326145.jpg}
-  \includegraphics[width=0.3\textwidth]{bad/1420185482574217.jpg}
+  \includegraphics[width=0.25\textwidth]{bad/1419743355933936.jpg}
+  \includegraphics[width=0.25\textwidth]{bad/1420050868326145.jpg}
+  \includegraphics[width=0.25\textwidth]{bad/1420185482574217.jpg}
 \end{center}
   \caption{Results from the evaluation. Top row: Three images correctly interpreted (all cows detected and no extra detections). Bottom row: The three images were the errors were made (1 missed cow and two extra detections).}
   \label{fig:res}
@@ -200,8 +203,9 @@ B\left( x, y, c \right) = \left\lbrace
 \end{equation}
 for $0\leq c \leq 31$ and all $i$. The $\mathrm{adist}$ function calculates the absolute angular distance between two angles. The ground truth probability masks are then produced by normalising $B$ to sum to $1$ for each pixel. Finally, the network is trained using the same hyper parameters as described above.
 
+\vspace{-1mm}
 \section{Watchdog evaluation}
-
+\vspace{-2mm}
 To evaluate the system, the 6400 frames spread over the entire recording were processed by the CNN. A simple watchdog extracting frames containing two or more cows were implemented. That would be the most basic requirement for an interaction, and already with this simple criteria, it was possible to discard 38 \% of the recordings as uninteresting. 50 random frames selected by the watchdog and 50 random frames discarded by the watchdog were automatically annotated by using the CNN results and studied manually. Cows intersecting the borders were ignored in the sense that the images were considered correct regardless of whether such border cases was detected or not.
 
 97 \% of the images were perfectly interpreted, i.e. all cows present were detected and no extra detections. Two of the images with errors containing several detected cows and was thus correctly classified as containing two or more cows by the watchdog, resulting in a watchdog hit rate for it of 99 \%. In total, those 100 images contain 222 cows. One of those were not detected and 2 extra detections were made yielding a cow hit rate of 99.6 \% with a false alarm rate of 0.9\%. Some example detections are shown in Figure \ref{fig:res}.
@@ -209,8 +213,9 @@ Some reason for mistakes are inter-cow occlusion and the combination of landmark
 
 The evaluation runs at 6.55 fps on a single Tesla K20m GPU, using single precision floats.
 
+\vspace{-1mm}
 \section{Conclusions}
-
+\vspace{-2mm}
 A CNN cow detection system has been developed. It can detect and count the cows present in the image with high precision. 97 \% of the test images were perfectly interpreted in the sense that the system was able to place a rotated rectangle on each cow and nowhere else, c.f. Figure \ref{fig:res}. This detector was used to discard 38 \% of the recorded video as uninteresting while only loosing 1 \% of the interesting video.
 
 \bibliographystyle{plain}
