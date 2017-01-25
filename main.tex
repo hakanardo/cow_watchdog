@@ -36,7 +36,18 @@ The pilot study used to develop this watchdog was made in a dairy barn in the so
 
 \subsection{Experimental setup}
 
-Video recordings were made using three Axis M3006-V cameras with a wide angle of 134 degrees that were placed at the 3.6-meter height, pointing straight down to optimise overview over the study area. There is a significant overlap between the camera images in order to not miss events taking place at the border between the cameras. In total 2315 hours (1 month) of 800x600 video in 16 Frames Per Second (FPS), was collected.
+\begin{figure}[tb]
+\begin{center}
+  \includegraphics[width=0.3\textwidth]{old-2.jpg}
+  \includegraphics[width=0.3\textwidth]{old-1.jpg}
+  \includegraphics[width=0.3\textwidth]{old-0.jpg}
+\end{center}
+  \caption{Example frames the recorded video.}
+  \label{fig:old}
+\end{figure}
+
+
+Video recordings were made using three Axis M3006-V cameras with a wide angle of 134 degrees that were placed at the 3.6-meter height, pointing straight down to optimise overview over the study area. There is a significant overlap between the camera images in order to not miss events taking place at the border between the cameras. See Figure~\ref{fig:old} for some example frames. In total 2315 hours (1 month) of 800x600 video in 16 Frames Per Second (FPS), was collected.
 
 The cameras were calibrated to compensate for lens distortion and rectified. Although the cameras were physically mounted to point fairly straight down, they were still slightly tilted. This tilting was synthetically removed during the rectification. The end result of this calibration is video images where the cows have the same size regardless of where in the image they appear. Also, the scan-lines of the three different cameras become aligned, which allows them to be stitched together to form an overview of the entire waiting area.
 
@@ -213,7 +224,17 @@ Two of the reasons for mistakes are inter-cow occlusion and the combination of l
 The evaluation runs at 6.55 fps on a single Tesla K20m GPU, using single precision floats.
 
 \subsection{Long term}
-Half a year after the original recordings were made another month of video was collected, and the original detector was tested on this data. It did however not perform very well. A lot of false detections were made. Especially in over exposed areas and there were also more misses. Two main differences between this new data and the old one have been identified. 
+\begin{figure}[tb]
+\begin{center}
+  \includegraphics[width=0.3\textwidth]{new-2.jpg}
+  \includegraphics[width=0.3\textwidth]{new-1.jpg}
+  \includegraphics[width=0.3\textwidth]{new-0.jpg}
+\end{center}
+  \caption{Example frames from a second recording made half a year after the first one.}
+  \label{fig:new}
+\end{figure}
+
+Half a year after the original recordings were made another month of video was collected, c.f Figure~\ref{fig:new} and the original detector was tested on this data. It did however not perform very well. A lot of false detections were made. Especially in over exposed areas and there were also more misses. Two main differences between this new data and the old one have been identified. 
 First, the cameras have become quite dirty. They were cleaned a few times during the experiments, but they grow dirty quite fast, so for a system like this to become useful it will have to be able to handle somewhat dirty cameras. Second, the sun was quite a lot lower on sky at the time of year of the new recording. That results in quite a different lighting situation. It might be an indoor scene, but there are still windows letting in the sun light.
 
 From this new data an 424 frames were randomly sampled and annotated in the same way as before. They contained in total 2880 cows. The detector was retrained using both the new and the old data, which resulted in a detector that were able to handle both datasets with similar performance. 
