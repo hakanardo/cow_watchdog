@@ -56,25 +56,26 @@ Finally, a Convolutional Neural Network (CNN)  was trained to detect the cows in
 
 \section{Camera calibration}
 
+\subsection{Experimental setup}
+
+\begin{figure}[tb]
+\begin{center}
+  \includegraphics[width=0.9\textwidth]{full.jpg}
+\end{center}
+  \caption{The frames from Figure~\ref{fig:old} projected onto the cow shoulder plane and stitched together}
+  \label{fig:old}
+\end{figure}
 
 
-In order to fulfil the specific research questions regarding dairy barn latted floor and distribution of animals on it,
- a correct transition of image coordinates into real-world coordinates was crucial. To assure that all the coordinates
-can be reliable and that the observer/algorithm will be able to correctly dentify all the objects, three images were
-merged and synchronised after applying normalisation algorithms. Setups with nly one camera (even with wide
-observation angle) could suffer from a number of image artefacts (e.g. radial distortion, tangential distortion,
-occlusion between objects/cows) therefore; it was decided to use three cameras for a relatively small region of
-interest (ROI) in the waiting area.
-
-For this study, the classical pinhole camera model augmented with a lens distortion model was used for scene view
-reconstruction. The scene view was formed through the projection of 3D world points into the image
-plane and to assure correct disposition and perspective of objects in a merged image covering the ROI, we used
-number of planar markers to estimate scene homography and lens distortion. The camera calibration method
-developed by Tsai (1986) and further improved by Horn (2000) includes both interior and exterior orientations,
-corrections for the distortion and a scale factor for the reliable correlation between target and scene coordinates.
-The number of planar markers was used for the camera calibration on site (Figure 1). These markers were placed
-at the height of the virtual floor. This height was estimated to be 1.49 meters with a standard deviation of 0.05 by
+The classical pinhole camera model augmented with a lens distortion model was used to model the camera.
+The camera setup was calibrated by placing markers on the walls and on stands in the middle of the room. They were all placed at the same height and thus defined a plane. The mean cow heigh in the barn was measured and the plane was place at their shoulder height. This height was estimated to be 1.49 meters with a standard deviation of 0.05 by
 measuring twelve random cows in the study area.
+This is the plane in which all of the landmarks except for the head is expected to be found. By projecting detected landmarks back and forth between the camera images and this plane, detections from different cameras can be matched.
+
+In addition to the markers, the focal length and lens distortion parameters were provided by the camera manufacturer.
+The lens distortion was removed and an homograph was estimated that projected each of the camera images onto the cow shoulder plane. Figure~\ref{fig:stitch} shows a view stitched together from all three images in Figure~\ref{fig:old}. It shows an overview of the entire waiting area. At the borders between the cameras the image become strange as one cow there is viewed from different directions on opposite sides of the border. However, this image is only used for illustration. There is enough overlap between the images to allow them to be processed one by one and then the resulting detections can be combined using this calibration.
+
+FIXME: center estimation, 
 
 \section{Data annotation}
 
