@@ -239,13 +239,15 @@ From this new data an 424 frames were randomly sampled and annotated in the same
 \subsection{Interaction detection}
 To remove even more of the uninteresting video, an additional feature, the minimum distance between the cows in the scene, was also extracted. Then a short sequence containing a lot of interesting interactions consisting of 187 frames evenly sampled over 10 minutes was extracted and manually annotated by an expert. Five different interaction was identified, body pushing, butting, head butting, head pressing and body sniffing. Frames where any of these interactions were present was considered interesting and all other frames uninteresting. The minimum cow distance for each frame was extracted and since these events has a duration the maximum such distance over 9 consecutive surrounding frames was used as feature value. The video was then filtered by shareholding this value. 
 
-By choosing different thresholds different the results can be varied between not detecting any uninteresting frames and not missing any interesting frames. Figure~\ref{fig:roc} show a curve of how large amount of the interesting frames that can be detected (true positives) as a function of how large amount of the uninteresting frames we can accept remains (false positives). If is for example possible to discard another 20\% of the uninteresting frames while only loosing 3\% of the interesting once. Note that this is in addition to the filtering by number of cows performed in Section~\ref{sec:num}. By combining the two filters 50\% of the uninteresting frames can be discarded while only loosing 4\% of the interesting frames.
+By choosing different thresholds different the results can be varied between not detecting any uninteresting frames and not missing any interesting frames. Figure~\ref{fig:roc} show a curve of how large amount of the interesting frames that can be detected (true positives) as a function of how large amount of the uninteresting frames we can accept remains (false positives). It is for example possible to discard another 20\% of the uninteresting frames while only loosing 3\% of the interesting once. If you are willing to loose more of the interesting frames, even more can be discarded as detailed by the curve.
+
+Note that this is in addition to the filtering by number of cows performed in Section~\ref{sec:num}. By combining the two filters 50\% of the uninteresting frames can be discarded while only loosing 4\% of the interesting frames.
 
 \begin{figure}[tb]
 \begin{center}
   \includegraphics[width=0.75\textwidth]{roc.pdf}
 \end{center}
-  \caption{Results for different threshodls, XXX}
+  \caption{Results for different thresholds, with the amount of interesting frames kept (true positive rate) plotted as a function of the amount of uninteresting frames kept (false positive rate).}
   \label{fig:roc}
 \end{figure}
 
