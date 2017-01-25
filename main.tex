@@ -1,31 +1,28 @@
-\documentclass[10pt,a4paper,twocolumn]{article}
+\documentclass{IET}
+
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
-\author{Håkan Ardö, Oleksiy Guzhva, Mikael Nilsson}
-%\title{Cow interaction watch dog}
-%watchdog not watch dog?
-%\title{Cow Interaction Watchdog}
-\title{A CNN-based Cow Interaction Watchdog}
-%\title{A Landmark and Rotated Rectangle CNN-based Cow Interaction Watchdog}
-%\title{A Two Step CNN-based Cow Interaction Watchdog}
-
 
 \begin{document}
+
+\title{A CNN-based Cow Interaction Watchdog}
+\author[1*]{Håkan Ardö}
+\affil{Centre for Mathematical Sciences, Lund University, Sölvegatan 18, Lund, Sweden}
+\author[2]{Oleksiy Guzhva}
+\affil{SLU, XXX}
+\author[1]{Mikael Nilsson}
+
+\abstract{
+Animal behaviour and welfare can be studied/assessed by looking at different interactions occurring between the animals. Video recordings of a scene of interest are often made and then watched/evaluated by experts. However, the  interactions of interest are often fairly rare. To reduce the amount of time the experts spend on watching the uninteresting video, this paper introduces an automated watchdog system that can discard some of the recorded video material. A pilot study on cows was made where a Convolutional Neural Network (CNN) detector was used to count the number of cows in the scene and discard video where less than two cows were present. This removed 38 \% of the recordings while only losing 1 \% of the interesting video.
+}
+
 \maketitle
 
-\begin{abstract}
-
-Animal behaviour and welfare can be studied/assessed by looking at different interactions occurring between the animals. Video recordings of a scene of interest are often made and then watched/evaluated by experts. However, the  interactions of interest are often fairly rare. To reduce the amount of time the experts spend on watching the uninteresting video, this paper introduces an automated watchdog system that can discard some of the recorded video material. A pilot study on cows was made where a Convolutional Neural Network (CNN) detector was used to count the number of cows in the scene and discard video where less than two cows were present. This removed 38 \% of the recordings while only losing 1 \% of the interesting video.
-
-
-\end{abstract}
-
 \section{Introduction}
-\vspace{-1mm}
 
 Scientists working with animal behaviour and welfare are interested in studying the social interactions between cows in dairy farms. Typically these studies performed by defining a set of interactions such as head butting, body pushing, social licking etc. and writing a very detailed protocol with the description of every interaction. Then an expert studies the area of interest for a large amount of time and counts the number of each interaction occurring for the whole duration of the video sequence/sequences used for the particular study \cite{MartinandBateson2007}. Some of these interactions are quite rare, which means that a lot of expert time have to be spent in looking at raw video data in order to find potentially interesting sequences.
 
@@ -37,7 +34,6 @@ The pilot study used to develop this watchdog was made in a dairy barn in the so
 
 
 \subsection{Experimental setup}
-\vspace{-1mm}
 
 Video recordings were made using three Axis M3006-V cameras with a wide angle of 134 degrees that were placed at the 3.6-meter height, pointing straight down to optimise overview over the study area. There is a significant overlap between the camera images in order to not miss events taking place at the border between the cameras. In total 2315 hours (1 month) of 800x600 video in 16 Frames Per Second (FPS), was collected.
 
@@ -47,7 +43,6 @@ Finally, a Convolutional Neural Network (CNN)  was trained to detect the cows in
 
 
 \section{Camera calibration}
-\vspace{-1mm}
 
 Straight lines were manually annotated in the camera images. Focal length and lens distortion parameters for the camera model used in OpenCV version 2.4.9.1 were then  optimised until the projections of the lines were straight in the images. Some of these lines, typically from the walls, were long enough to pass through all three cameras. These lines were used to find the orientation of the cameras, again by local optimisation until the projections of the lines into the different camera images agree.
 
@@ -74,7 +69,6 @@ Straight lines were manually annotated in the camera images. Focal length and le
 %measuring twelve random cows in the study area.
 
 \section{CNN cow detector}
-\vspace{-1mm}
 
 A random subset of the full recording consisting of 1722 images was manually annotated. This subset contained in total 6399 cows. Each cow was annotated with seven landmark points: head, left and right shoulder, front middle, left and right hip and back middle. In addition to that one additional landmark "cow centre" was defined as the mean of front middle and back middle. This data was then used to train a CNN detector.
 
@@ -163,8 +157,6 @@ Softmax & & \\
   \includegraphics[width=0.25\textwidth]{ok/1419630968631761.jpg}
   \includegraphics[width=0.25\textwidth]{ok/1420251135794580.jpg}
 
-\vspace{1mm}
-
   \includegraphics[width=0.25\textwidth]{bad/1419743355933936.jpg}
   \includegraphics[width=0.25\textwidth]{bad/1420050868326145.jpg}
   \includegraphics[width=0.25\textwidth]{bad/1420185482574217.jpg}
@@ -205,7 +197,6 @@ B\left( x, y, c \right) = \left\lbrace
 for $0\leq c \leq 31$ and all $i$. The $\mathrm{adist}$ function calculates the absolute angular distance between two angles. The ground truth probability masks are then produced by normalising $B$ to sum to $1$ for each pixel. Finally, the network is trained using the same hyper parameters as described above.
 
 \section{Watchdog evaluation}
-\vspace{-1mm}
 To evaluate the system, the 6400 frames spread over the entire recording were processed by the CNN. A simple watchdog extracting frames containing two or more cows were implemented. That would be the most basic requirement for an interaction, and already with this simple criteria, it was possible to discard 38 \% of the recordings as uninteresting. 50 random frames selected by the watchdog and 50 random frames discarded by the watchdog were automatically annotated by using the CNN results and studied manually. Cows intersecting the borders were ignored in the sense that the images were considered correct regardless of whether such border cases was detected or not.
 
 97 \% of the images were perfectly interpreted, i.e. all cows present were detected and no extra detections. Two of the images with errors containing several detected cows and was thus correctly classified as containing two or more cows by the watchdog, resulting in a watchdog hit rate for it of 99 \%. In total, those 100 images contain 222 cows. One of those were not detected and 2 extra detections were made yielding a cow hit rate of 99.6 \% with a false alarm rate of 0.9\%. Some example detections are shown in Figure \ref{fig:res}.
@@ -214,11 +205,11 @@ Two of the reasons for mistakes are inter-cow occlusion and the combination of l
 The evaluation runs at 6.55 fps on a single Tesla K20m GPU, using single precision floats.
 
 \section{Conclusions}
-\vspace{-1mm}
 A CNN cow detection system has been developed. It can detect and count the cows present in the image with high precision. 97 \% of the test images were perfectly interpreted in the sense that the system was able to place a rotated rectangle on each cow and nowhere else, c.f. Figure \ref{fig:res}. This detector was used to discard 38 \% of the recorded video as uninteresting while only losing 1 \% of the interesting video.
 
 \bibliographystyle{plain}
-{\footnotesize
+{\parindent0pt
+\parskip8pt
 \bibliography{main}
 }
 \end{document}
