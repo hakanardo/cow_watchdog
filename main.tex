@@ -110,7 +110,7 @@ In the camera images, the markers placed in the cow shoulder plane was located m
 \lambda x_d = H x_n .
 \end{equation}
 
-This generates a common coordinate system for all of them cameras which allows detections from each of the cameras to be projected into this common frame. That way different cameras can be used in different parts of the waiting area. To minimize the amount of occlusion taking place, each part of the waiting area should use the closest camera to get a view from as straight above as possible. For that the camera position in the cow shoulder plane needs to be estimated. That can be achieved by rq factorisation of $H$, 
+This generates a common coordinate system for all of them cameras which allows detections from each of the cameras to be projected into this common frame. That way different cameras can be used in different parts of the waiting area. To minimize the amount of occlusion taking place, each part of the waiting area should use the closest camera to get a view from as straight above as possible. For that the camera position in the cow shoulder plane needs to be estimated. That can be achieved by rq factorisation of $H$ \cite{Hartley2004}, 
 \begin{equation}
 H = K_d R_d = 
     \lambda
@@ -123,9 +123,8 @@ H = K_d R_d =
 	\right)
 	R_d ,
 \end{equation}
-were the camera position is given by $c = \left(c_x, c_y, 1\right)$. Figure~\ref{fig:stitch} shows an image where each pixels has been chosen from the camera closest to that pixel, i.e. with  minimum $\left| x_d - c \right|$.
+were the camera position is given by $c = \left(c_x, c_y, 1\right)$. Figure~\ref{fig:stitch} shows an image where each pixel has been chosen from the camera closest to that pixel, i.e. with  minimum $\left| x_d - c \right|$.
 
-FIXME: center estimation, 
 
 \section{Data annotation}
 
