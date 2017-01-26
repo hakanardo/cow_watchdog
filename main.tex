@@ -31,14 +31,14 @@ Some recent studies on cow behaviour in the dairy barn environment were based on
 
 In this paper, the goal is to take the first step towards an automated system for behavioural analysis. The study area is filmed using video cameras. Then an automated watchdog system will remove unnecessary parts (e.g. those, containing events that are not relevant or without animals in the scene) of the recorded video material. The remaining video sequences will still have to be studied by experts, but the time spent looking at uninteresting video sequences will be significantly reduced.
 
-The pilot study used to develop this watchdog was made in a dairy barn in the south of Sweden with 252 Swedish Holstein cows. Cows were milked by four automatic milking robots, which had a common waiting area (6x18 meters). This waiting area is a common space which cows that are ready for milking could enter at any point in time. They will then interact with each other in order to decide who are allowed to enter each of the milking robots and in which order. A direct relationship between cows' inter-cow distance and their aggressive behavioural patterns was demonstrated by \cite{DeVriesetal2004}. Other studies \cite{Hemsworth2003, Kilgour2012} showed certain effects of inferior animal welfare connected to the restrained performance of their natural behaviour. Therefore, early diagnostics of unconditional changes in animal behaviour when linked to health and welfare could not only save time and money for the farmer but also decrease the production pressure for every animal in the barn \cite{Polikarpusetal2015}.
+The pilot study used to develop this watchdog was made in a dairy barn in the south of Sweden with 252 Swedish Holstein cows. Cows were milked by four automatic milking robots, which had a common waiting area (6x18 meters). This waiting area is a common space which cows that are ready for milking are allowed to enter at any point in time. They will then interact with each other in order to decide who are allowed to enter each of the milking robots and in which order. A direct relationship between cows' inter-cow distance and their aggressive behavioural patterns was demonstrated by \cite{DeVriesetal2004}. Other studies \cite{Hemsworth2003, Kilgour2012} showed certain effects of inferior animal welfare connected to the restrained performance of their natural behaviour. Therefore, early diagnostics of unconditional changes in animal behaviour when linked to health and welfare could not only save time and money for the farmer but also decrease the production pressure for every animal in the barn \cite{Polikarpusetal2015}.
 
 \subsection{Related work}
-http://www.shengfenghe.com/uploads/1/5/1/3/15132160/oop_iccv15.pdf
-http://homepages.inf.ed.ac.uk/rbf/VAIB16PAPERS/vaibjabbar.pdf
-http://www.sciencedirect.com/science/article/pii/S1537511015000355
-http://www.ragusashwa.it/CD_2012/lavori/TOPIC5/poster/topic%205_266_272.pdf
-https://www.ecow.co.uk/wp-content/uploads/2011/07/Video-tracking-of-dairy-cows-for-assessing-mobility-scores.pdf
+%http://www.shengfenghe.com/uploads/1/5/1/3/15132160/oop_iccv15.pdf
+%http://homepages.inf.ed.ac.uk/rbf/VAIB16PAPERS/vaibjabbar.pdf
+%http://www.sciencedirect.com/science/article/pii/S1537511015000355
+%http://www.ragusashwa.it/CD_2012/lavori/TOPIC5/poster/topic%205_266_272.pdf
+%https://www.ecow.co.uk/wp-content/uploads/2011/07/Video-tracking-of-dairy-cows-for-assessing-mobility-scores.pdf
 
 \subsection{Experimental setup}
 
@@ -53,7 +53,7 @@ https://www.ecow.co.uk/wp-content/uploads/2011/07/Video-tracking-of-dairy-cows-f
 \end{figure}
 
 
-Video recordings were made using three Axis M3006-V cameras with a wide field of view, 134 degrees, that were placed at the 3.6-meter height, pointing straight down to optimise overview over the study area. There is a significant overlap between the camera images to not miss events taking place at the border between the cameras. See Figure~\ref{fig:old} for some example frames. In total 2315 hours (1 month) of 800x600 video at 16 Frames Per Second (FPS), was collected.
+Video recordings were made using three Axis M3006-V cameras with a wide field of view, 134 degrees. They were placed in the ceiling at an height of 3.6-meters, pointing straight down to optimise overview over the study area. There is a significant overlap between the camera images to not miss events taking place at the border between the cameras. See Figure~\ref{fig:old} for some example frames. In total 2315 hours (1 month) of 800x600 video at 16 Frames Per Second (FPS), was collected.
 
 The cameras were calibrated to compensate for lens distortion and rectified. Although the cameras were physically mounted to point fairly straight down, they were still slightly tilted. This tilting was synthetically removed during the rectification. The result of this calibration is video images where the cows have the same size regardless of where in the image they appear. Also, the scan-lines of the three different cameras become aligned, which allows them to be stitched together to form an overview of the entire waiting area.
 
@@ -84,12 +84,12 @@ Finally, a Convolutional Neural Network (CNN)  was trained to detect the cows in
 
 The classical pinhole camera model augmented with a lens distortion model was used to model the camera.
 The camera setup was calibrated by placing markers on the walls and stands in the middle of the room. They were all placed at the same height and thus defined a plane. The mean cow height in the barn was measured, and the plane was placed at their shoulder height. This height was estimated to be 1.49 meters with a standard deviation of 0.05 by measuring twelve random cows in the study area.
-This is the plane in which all of the landmarks except for the head is expected to be found. By projecting detected landmarks back and forth between the camera images and this plane, detections from different cameras can be matched.
+This is the plane in which all of the landmarks considered below, except for the head, are expected to be found. By projecting detected landmarks back and forth between the camera images and this plane, detections from different cameras can be matched.
 
 In addition to the markers, the focal length and lens distortion parameters were provided by the camera manufacturer.
-The lens distortion was removed, and a homograph was estimated that projected each of the camera images onto the cow shoulder plane. Figure~\ref{fig:stitch} shows a view stitched together from all three images in Figure~\ref{fig:old}. It shows an overview of the entire waiting area. At the borders between the cameras, the image becomes strange as one cow there is viewed from different directions on opposite sides of the border. However, this image is only used for illustration. There is enough overlap between the images to allow them to be processed one by one and then the resulting detections can be combined using this calibration. Figure~\ref{fig:separate} shows the separate dewarped frames used by the detector. Note how the same cow is almost fully visible in both the left and the middle image.
+The lens distortion was removed, and a homograph was estimated that projected each of the camera images onto the cow shoulder plane. Figure~\ref{fig:stitch} shows a view stitched together from all three images in Figure~\ref{fig:old}. It shows an overview of the entire waiting area. At the borders between the cameras, the image becomes strange as cows there are viewed from different directions on opposite sides of the border. However, this image is only used for illustration. There is enough overlap between the images to allow them to be processed one by one and then the resulting detections can be combined using this calibration. Figure~\ref{fig:separate} shows the separate dewarped frames used by the detector. Note how the same cow is almost fully visible in both the left and the middle image.
 
-By using homogeneous coordinates, the pinhole camera model that forms 2D image pixel $x=\left(x_1, x_2, 1\right)$ by projecting world 3D points $X=\left(X_1, X_2, X_3, 1\right)$ using a camera matrix $P$ can be formed as
+By using homogeneous coordinates, the pinhole camera model that forms 2D image pixels, $x=\left(x_1, x_2, 1\right)$, by projecting world 3D points, $X=\left(X_1, X_2, X_3, 1\right)$, using a camera matrix, $P$, can be formed as
 
 \begin{equation}
 	\lambda x = P X = K \left(
@@ -110,7 +110,7 @@ By using homogeneous coordinates, the pinhole camera model that forms 2D image p
 	\end{array}
 	\right) X,	
 \end{equation} 
-were $f$ is the focal length of the camera and $\left(p_x, p_y\right)$ it's principal point while $t$ and $R$  define it's 3D position and orientation. This projective image is then distorted using some lens distortion function, $\hat x = f_\text{dist}\left(K^{-1}x\right)$. Here a radial fish eye lens distortion model is used. By using nominal image coordinates, $\lambda x_n = K^{-1} x$ and $\hat x_n = \left(\hat x_1 - p_x, \hat x_2 - p_y, 1\right)$ the inverse of this distortion function can be express as 
+were $f$ is the focal length of the camera and $\left(p_x, p_y\right)$ its principal point while $t$ and $R$  define its 3D position and orientation. This projective image is then distorted using some lens distortion function, $\hat x = f_\text{dist}\left(K^{-1}x\right)$. Here a radial fish eye lens distortion model is used. By using nominal image coordinates, $\lambda x_n = K^{-1} x$ and $\hat x_n = \left(\hat x_1 - p_x, \hat x_2 - p_y, 1\right)$ the inverse of this distortion function can be express as 
 
 \begin{equation}
 	\left| x_n \right| = \tan \left( \sum_i k_i \left| \hat x_n \right|^i \right)
@@ -118,7 +118,7 @@ were $f$ is the focal length of the camera and $\left(p_x, p_y\right)$ it's prin
 \end{equation}
 where $k_i$ is the set of distortion parameters and 
 $\left| x \right| = \sqrt{x_1^2 + x_2^2}$.
-Note that with this distortion model, the focal length becomes part of the distortion and Equation~\ref{eq:dist} allows the pixels produced by the camera $x$ to be transformed into nominal projective coordinates $x_n$ directly. The distortion parameters $k_i$ was provided by the manufacturer and the principal point, $\left(p_x, p_y\right)$  was assumed to be at the center of the image.
+Note that with this distortion model, the focal length becomes part of the distortion and Equation~\ref{eq:dist} allows the pixels produced by the camera $x$ to be transformed into nominal projective coordinates, $x_n$, directly. The distortion parameters, $k_i$, was provided by the manufacturer and the principal point, $\left(p_x, p_y\right)$,  was assumed to be at the center of the image.
 
 In the camera images, the markers placed in the cow shoulder plane was located manually and their nominal coordinates, $x_n$, were registered by clicking on them. Also, real world distances between the marks were estimated using a laser pointer. From these measurements the world coordinates, $x_s$, were calculated using multidimensional scaling \cite{Young1938}. One homograph, $H$, for each camera was fitted to the point correspondences allowing the pixels to be projected onto this plane using 
 \begin{equation}
@@ -138,7 +138,7 @@ H = K_d R_d =
 	\right)
 	R_d ,
 \end{equation}
-were the camera position is given by $c = \left(c_x, c_y, 1\right)$. Figure~\ref{fig:stitch} shows an image where each pixel has been chosen from the camera closest to that pixel, i.e. with  minimum $\left| x_d - c \right|$.
+were the camera position is given by $c = \left(c_x, c_y, 1\right)$. Figure~\ref{fig:stitch} shows an image where each pixel has been chosen from the camera closest to that pixel, i.e. with  minimum $\left| x_d - c \right|$. The final crops used from each camera consists of the pixels in this stitched view with a border of $75$ pixels added on each side to make the overlap $150$ pixels, which roughly corresponds to the length of one cow.
 
 
 \section{Data annotation}
@@ -199,11 +199,11 @@ Conv + Softmax & 1x1 & 5 \\
 
 The landmark net was trained on patches of $150\times 150$ pixels extracted from the input images. This makes the output during training a single pixel. The positive examples were centred on the landmarks and randomly jittered $\pm 16$ pixels (as the distance between output pixels is $32$ input pixels). Negative patches were selected at centres more than $32$ pixels from any landmark. In addition to the positive and negative patches a set of do not care patches were selected at random centres at distances between $16$ and $32$ pixels from landmarks. The ground truth probability of these patches belong to the class of the landmark was set to $0.5$, and the probability that they are ground was set to $0.5$. In some cases, several landmarks appear within $32$ pixels of the patch centre. In that case, the probability mass was distributed uniformly among all involved classes.
 
-The weights of the convolutions are initiated using random samples draw from a Gaussian
+The weights of the convolutions were initiated using random samples draw from a Gaussian
 distribution truncated at $2\sigma$, with standard deviation $\sigma=\sqrt{\frac{2}{n}}$,
-where $n$ is the number of inputs\cite{DBLP:journals/corr/HeZR015}. The networks are regularised with weight decay of
+where $n$ is the number of inputs\cite{DBLP:journals/corr/HeZR015}. The networks were regularised with weight decay of
 $0.0001$ and optimised using stochastic gradient descent with $0.9$ momentum. The
-learning rate is initiated to $1.0$ and reduced by a factor $10$ each time the validation
+learning rate was initiated to $1.0$ and reduced by a factor $10$ each time the validation
 error flattens. The landmark CNN uses only valid outputs from the convolutional and maxpool
 layers while the cow detector keeps the same resolution also to detect cows that are
 slightly outside the image.
@@ -276,9 +276,9 @@ for $0\leq c \leq 31$ and all $i$. The $\mathrm{adist}$ function calculates the 
 \section{Watchdog evaluation}
 \subsection{Cow detection}
 \label{sec:num}
-To evaluate the system, the 6400 frames spread over the entire recording were processed by the CNN. A simple watchdog extracting frames containing two or more cows was implemented. That would be the most basic requirement for interaction, and already with this simple criteria, it was possible to discard 38 \% of the recordings as uninteresting. 50 random frames selected by the watchdog and 50 random frames discarded by the watchdog were automatically annotated by using the CNN results and studied manually. Cows intersecting the borders were ignored in the sense that the images were considered correct regardless of whether such border cases was detected or not. A detection was considered correct if it's rotated bounding box overlapped more than 50\% of the ground truth bounding box area.
+To evaluate the system, 6400 frames spread over the entire recording were processed by the CNN. A simple watchdog extracting frames containing two or more cows was implemented. That would be the most basic requirement for interaction, and already with this simple criteria, it was possible to discard 38 \% of the recordings as uninteresting. 50 random frames selected by the watchdog and 50 random frames discarded by the watchdog were automatically annotated by using the CNN results and studied manually. Cows intersecting the borders were ignored in the sense that the images were considered correct regardless of whether such border cases was detected or not. A detection was considered correct if it's rotated bounding box overlapped more than 50\% of the ground truth bounding box area.
 
-97 \% of the images were perfectly interpreted, i.e. all cows present were detected and no extra detections. Two of the images with errors containing several detected cows and was thus correctly classified as containing two or more cows by the watchdog, resulting in a watchdog hit rate for it of 99 \%. In total, those 100 images contain 222 cows. One of those were not detected and 2 extra detections were made yielding a cow hit rate of 99.6 \% with a false alarm rate of 0.9\%. Some example detections are shown in Figure \ref{fig:res}.
+Most, 97 \%, of the images were perfectly interpreted, i.e. all cows present were detected and no extra detections. Two of the images with errors containing several detected cows and was thus correctly classified as containing two or more cows by the watchdog, resulting in a watchdog hit rate of 99 \%. In total, those 100 images contain 222 cows. One of those were not detected and 2 extra detections were made yielding a cow hit rate of 99.6 \% with a false alarm rate of 0.9\%. Some example detections are shown in Figure \ref{fig:res}.
 Two of the reasons for mistakes are inter-cow occlusion and the combination of landmarks from different individuals.
 
 The evaluation runs at 6.55 fps on a single Tesla K20m GPU, using single precision floats.
@@ -298,14 +298,14 @@ Half a year after the original recordings were made another month of video was c
 A lot of false detections were made. Especially in over exposed areas and there were also more misses. 
 
 Two main differences between this new data and the old one have been identified. 
-First, the cameras have become quite dirty. They were cleaned a few times during the experiments, but they grow dirty quite fast, so for a system like this to become useful it will have to be able to handle somewhat dirty cameras. Second, the sun was quite a lot lower on sky at the time of year of the new recording. That results in quite a different lighting situation. It might be an indoor scene, but there are still windows letting in the sun light.
+First, the cameras have become quite dirty. They were cleaned a few times during the experiments, but they grow dirty quite fast, so for a system like this to become useful it will have to be able to handle somewhat dirty cameras. Second, the sun was a lot lower on sky at the time of year of the new recording. That results in a different lighting situation. It is an indoor scene, but there are windows letting in the sun light.
 
-From this new data, the 421 frames where the old detector made errors as well as 3 frames that contained no errors were manually annotated in the same way as before. They contained in total 2880 cows. The detector was retrained using both the new and the old data, which resulted in a detector with more even performance across varying seasons. A validation set consisting of 10 \% of the annotated data (196 frmaes) was separated out and not used during the training. This set was used to evaluate the new detector. In total they contained 408 cows and 396 of these were detected with only 6 extra detections. That gives an cow hit rate of 97 \% with a false alarm rate of 2.9 \%. In terms of frames 92.8 \% were perfectly interpreted while there were mistakes made in 14 of the frames. Among those 14, 13 contained more than one cow and thus the hit rate of the watchdog finding frames with two or more cows were 99.5 \%.
+From this new data, the 421 frames where the old detector made errors as well as 3 frames that contained no errors were manually annotated in the same way as before. They contained in total 2880 cows. The detector was retrained using both the new and the old data, which resulted in a detector with more even performance across the varying seasons. A validation set consisting of 10 \% of the annotated data (196 frmaes) was separated out and not used during the training. This set was used to evaluate the new detector. In total it contained 408 cows and 396 of these were detected with only 6 extra detections. That gives an cow hit rate of 97 \% with a false alarm rate of 2.9 \%. In terms of frames 92.8 \% were perfectly interpreted while there were mistakes made in 14 of the frames. Among those 14, 13 contained more than one cow and thus the hit rate of the watchdog finding frames with two or more cows were 99.5 \%.
 
 \subsection{Interaction detection}
-To remove even more of the uninteresting video, an additional feature, the minimum distance between the cows in the scene, was also extracted. Then a short sequence containing a lot of interesting interactions consisting of 187 frames evenly sampled over 10 minutes was extracted and manually annotated by an expert. Five different interaction was identified, body pushing, butting, head butting, head pressing and body sniffing. Frames where any of these interactions were present was considered interesting and all other frames uninteresting. The minimum cow distance for each frame was extracted and since these events has a duration the maximum such distance over 9 consecutive surrounding frames was used as feature value. The video was then filtered by shareholding this value. 
+To remove even more of the uninteresting video, an additional feature, the minimum distance between the cows in the scene, was also extracted. Then a short sequence containing a lot of interesting interactions consisting of 187 frames evenly sampled over 10 minutes was extracted and manually annotated by an expert. Five different interaction was identified, body pushing, butting, head butting, head pressing and body sniffing. Frames where any of these interactions were present was considered interesting and all other frames uninteresting. The minimum cow distance for each frame was extracted and since these events has a duration the maximum such distance over 9 consecutive surrounding frames was used as feature value. The video was then filtered by thresholding this value. 
 
-By choosing different thresholds different the results can be varied between not detecting any uninteresting frames and not missing any interesting frames. Figure~\ref{fig:roc} show a curve of how large amount of the interesting frames that can be detected (true positives) as a function of how large amount of the uninteresting frames we can accept remains (false positives). It is for example possible to discard another 20\% of the uninteresting frames while only loosing 3\% of the interesting once. If you are willing to loose more of the interesting frames, even more can be discarded as detailed by the curve.
+By choosing different thresholds the results can be varied between not detecting any uninteresting frames and not missing any interesting frames. Figure~\ref{fig:roc} show a curve of how large amount of the interesting frames that can be detected (true positives) as a function of how large amount of the uninteresting frames remains (false positives). It is for example possible to discard another 20\% of the uninteresting frames while only loosing 3\% of the interesting once. If it is acceptable to loose more of the interesting frames, even more can be discarded as detailed by the curve.
 
 Note that this is in addition to the filtering by number of cows performed in Section~\ref{sec:num}. By combining the two filters 50\% of the uninteresting frames can be discarded while only loosing 4\% of the interesting frames.
 
