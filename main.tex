@@ -231,10 +231,13 @@ The evaluation runs at 6.55 fps on a single Tesla K20m GPU, using single precisi
   \label{fig:new}
 \end{figure}
 
-Half a year after the original recordings were made another month of video was collected, c.f Figure~\ref{fig:new} and the original detector was tested on this data. It did however not perform very well. A lot of false detections were made. Especially in over exposed areas and there were also more misses. Two main differences between this new data and the old one have been identified. 
+Half a year after the original recordings were made another month of video was collected, c.f Figure~\ref{fig:new}, and the original detector was tested on this data. It did however not perform very well. A set of 931 frames were sampled from the new recording and passed to the detector. It produced annotated images that were then inspected manually. Among these, 510 or 55\% of the images were perfectly interpreted in the same sense as above, while 421 or 45\% contained some sort of mistake.
+A lot of false detections were made. Especially in over exposed areas and there were also more misses. 
+
+Two main differences between this new data and the old one have been identified. 
 First, the cameras have become quite dirty. They were cleaned a few times during the experiments, but they grow dirty quite fast, so for a system like this to become useful it will have to be able to handle somewhat dirty cameras. Second, the sun was quite a lot lower on sky at the time of year of the new recording. That results in quite a different lighting situation. It might be an indoor scene, but there are still windows letting in the sun light.
 
-From this new data an 424 frames were randomly sampled and annotated in the same way as before. They contained in total 2880 cows. The detector was retrained using both the new and the old data, which resulted in a detector that were able to handle both datasets with similar performance. 
+From this new data, the 421 frames where the old detector made errors as well as 3 frames that contained no errors were manually annotated in the same way as before. They contained in total 2880 cows. The detector was retrained using both the new and the old data, which resulted in a detector that were able to handle both datasets with similar performance. 
 
 \subsection{Interaction detection}
 To remove even more of the uninteresting video, an additional feature, the minimum distance between the cows in the scene, was also extracted. Then a short sequence containing a lot of interesting interactions consisting of 187 frames evenly sampled over 10 minutes was extracted and manually annotated by an expert. Five different interaction was identified, body pushing, butting, head butting, head pressing and body sniffing. Frames where any of these interactions were present was considered interesting and all other frames uninteresting. The minimum cow distance for each frame was extracted and since these events has a duration the maximum such distance over 9 consecutive surrounding frames was used as feature value. The video was then filtered by shareholding this value. 
