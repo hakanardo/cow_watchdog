@@ -93,17 +93,37 @@ By using homogeneous coordinates, the pinhole camera model that forms 2D image p
 	\begin{array}{cc}
 		R & t \\
 	\end{array}
-	\right) X	
+	\right) X,	
 \end{equation} 
-
-were $f$ is the focal length of the camera and $\left(p_x, p_y\right)$ it's principal point while $t$ and $R$  define it's 3D position and orientation. This projective image is then distorted using some lens distortion function, $\hat x = f_\text{dist}\left(K^-1x\right)$. Here a radial fish eye lens distortion model is used. By using nominal image coordinates, $\lambda x_n = K^{-1} x$ and $\hat x_n = \left(\hat x_1 - p_x, \hat x_2 - p_y, 1\right)$ the inverse of this distortion function can be express as 
+were $f$ is the focal length of the camera and $\left(p_x, p_y\right)$ it's principal point while $t$ and $R$  define it's 3D position and orientation. This projective image is then distorted using some lens distortion function, $\hat x = f_\text{dist}\left(K^{-1}x\right)$. Here a radial fish eye lens distortion model is used. By using nominal image coordinates, $\lambda x_n = K^{-1} x$ and $\hat x_n = \left(\hat x_1 - p_x, \hat x_2 - p_y, 1\right)$ the inverse of this distortion function can be express as 
 
 \begin{equation}
 	\left| x_n \right| = \tan \left( \sum_i k_i \left| \hat x_n \right|^i \right)
+	\label{eq:dist} ,
 \end{equation}
-
 where $k_i$ is the set of distortion parameters and 
 $\left| x \right| = \sqrt{x_1^2 + x_2^2}$.
+Note that with this distortion model, the focal length becomes part of the distortion and Equation~\ref{eq:dist} allows the pixels produced by the camera $x$ to be transformed into nominal projective coordinates $x_n$ directly. The distortion parameters $k_i$ was provided by the manufacturer and the principal point, $\left(p_x, p_y\right)$  was assumed to be at the center of the image.
+
+In the camera images, the markers placed in the cow shoulder plane was located manually and their nominal coordinates, $x_n$, were registered by clicking on them. Also, real world distances between the marks were estimated using a laser pointer. From these measurements the world coordinates, $x_s$, were calculated using multidimensional scaling \cite{Young1938}. One homograph, $H$, for each camera was fitted to the point correspondences allowing the pixels to be projected onto this plane using 
+\begin{equation}
+\lambda x_d = H x_n .
+\end{equation}
+
+This generates a common coordinate system for all of them cameras which allows detections from each of the cameras to be projected into this common frame. That way different cameras can be used in different parts of the waiting area. To minimize the amount of occlusion taking place, each part of the waiting area should use the closest camera to get a view from as straight above as possible. For that the camera position in the cow shoulder plane needs to be estimated. That can be achieved by rq factorisation of $H$, 
+\begin{equation}
+H = K_d R_d = 
+    \lambda
+	\left(
+	\begin{array}{ccc}
+		f_x & s & c_x  \\
+		0 & f_y & c_y  \\
+		0 & 0 & 1  \\
+	\end{array}
+	\right)
+	R_d ,
+\end{equation}
+were the camera position is given by $c = \left(c_x, c_y, 1\right)$. Figure~\ref{fig:stitch} shows an image where each pixels has been chosen from the camera closest to that pixel, i.e. with  minimum $\left| x_d - c \right|$.
 
 FIXME: center estimation, 
 
