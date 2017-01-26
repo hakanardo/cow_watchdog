@@ -109,7 +109,7 @@ FIXME: center estimation,
 
 \section{Data annotation}
 
-The complete dataset contains 3 months of recordings collected from 3 cameras at 16 fps. That makes 400 million frames. Among these 1722 was randomly selected and annotated. The annotation process started before everything was recorded, so the video is sampled somewhat more densely in the beginning but the mean distance between two adjacent annotated frames is 30 min. So we believe that the annotated frames are fairly uncorrelated and should give a good representation of the distribution of frames that could be expected to be seen from these cameras.
+The complete dataset contains three months of recordings collected from 3 cameras at 16 fps. That makes 400 million frames. Among these 1722 was randomly selected and annotated. The annotation process started before everything was recorded, so the video is sampled somewhat more densely in the beginning but the mean distance between two adjacent annotated frames is 30 min. So we believe that the annotated frames are fairly uncorrelated and should give a good representation of the distribution of frames that could be expected to be seen from these cameras.
 
 The annotated subset contained in total 6399 cows. Each cow was annotated with seven landmark points: head, left and right shoulder, front middle, left and right hip and back middle. In addition to that one additional landmark "cow centre" was defined as the mean of front middle and back middle. This data was then used to train a CNN detector.
 
@@ -164,7 +164,7 @@ Softmax & & \\
 \label{tab:cownet}
 \end{table}
 
-The landmark net was trained on patches of $150\times 150$ pixels extracted from the input images. This makes the output during training a single pixel. The positive examples were centred on the landmarks and randomly jittered $\pm 16$ pixels (as the distance between output pixels is $32$ input pixels). Negative patches were selected at centres more than $32$ pixels from any landmark. In addition to the positive and negative patches a set of do not care patches were selected at random centres at distances between $16$ and $32$ pixels from landmarks. The ground truth probability of these patches belong to the class of the landmark was set to $0.5$ and the probability that they are ground was set to $0.5$. In some cases, several landmarks appear within $32$ pixels of the patch centre. In that case, the probability mass was distributed uniformly among all involved classes.
+The landmark net was trained on patches of $150\times 150$ pixels extracted from the input images. This makes the output during training a single pixel. The positive examples were centred on the landmarks and randomly jittered $\pm 16$ pixels (as the distance between output pixels is $32$ input pixels). Negative patches were selected at centres more than $32$ pixels from any landmark. In addition to the positive and negative patches a set of do not care patches were selected at random centres at distances between $16$ and $32$ pixels from landmarks. The ground truth probability of these patches belong to the class of the landmark was set to $0.5$, and the probability that they are ground was set to $0.5$. In some cases, several landmarks appear within $32$ pixels of the patch centre. In that case, the probability mass was distributed uniformly among all involved classes.
 
 The weights of the convolutions are initiated using random samples draw from a Gaussian
 distribution truncated at $2\sigma$, with standard deviation $\sigma=\sqrt{\frac{2}{n}}$,
@@ -172,7 +172,7 @@ where $n$ is the number of inputs\cite{DBLP:journals/corr/HeZR015}. The networks
 $0.0001$ and optimised using stochastic gradient descent with $0.9$ momentum. The
 learning rate is initiated to $1.0$ and reduced by a factor $10$ each time the validation
 error flattens. The landmark CNN uses only valid outputs from the convolutional and maxpool
-layers while the cow detector keeps the same resolution to also detect cows that are
+layers while the cow detector keeps the same resolution also to detect cows that are
 slightly outside the image.
 
 \begin{table}
@@ -243,7 +243,7 @@ for $0\leq c \leq 31$ and all $i$. The $\mathrm{adist}$ function calculates the 
 \section{Watchdog evaluation}
 \subsection{Cow detection}
 \label{sec:num}
-To evaluate the system, the 6400 frames spread over the entire recording were processed by the CNN. A simple watchdog extracting frames containing two or more cows were implemented. That would be the most basic requirement for an interaction, and already with this simple criteria, it was possible to discard 38 \% of the recordings as uninteresting. 50 random frames selected by the watchdog and 50 random frames discarded by the watchdog were automatically annotated by using the CNN results and studied manually. Cows intersecting the borders were ignored in the sense that the images were considered correct regardless of whether such border cases was detected or not.
+TTo evaluate the system, the 6400 frames spread over the entire recording were processed by the CNN. A simple watchdog extracting frames containing two or more cows was implemented. That would be the most basic requirement for interaction, and already with this simple criteria, it was possible to discard 38 \% of the recordings as uninteresting. 50 random frames selected by the watchdog and 50 random frames discarded by the watchdog were automatically annotated by using the CNN results and studied manually. Cows intersecting the borders were ignored in the sense that the images were considered correct regardless of whether such border cases was detected or not.
 
 97 \% of the images were perfectly interpreted, i.e. all cows present were detected and no extra detections. Two of the images with errors containing several detected cows and was thus correctly classified as containing two or more cows by the watchdog, resulting in a watchdog hit rate for it of 99 \%. In total, those 100 images contain 222 cows. One of those were not detected and 2 extra detections were made yielding a cow hit rate of 99.6 \% with a false alarm rate of 0.9\%. Some example detections are shown in Figure \ref{fig:res}.
 Two of the reasons for mistakes are inter-cow occlusion and the combination of landmarks from different individuals.
