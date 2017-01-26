@@ -47,7 +47,7 @@ The pilot study used to develop this watchdog was made in a dairy barn in the so
 \end{figure}
 
 
-Video recordings were made using three Axis M3006-V cameras with a wide angle of 134 degrees that were placed at the 3.6-meter height, pointing straight down to optimise overview over the study area. There is a significant overlap between the camera images to not miss events taking place at the border between the cameras. See Figure~\ref{fig:old} for some example frames. In total 2315 hours (1 month) of 800x600 video at 16 Frames Per Second (FPS), was collected.
+Video recordings were made using three Axis M3006-V cameras with a wide field of view, 134 degrees, that were placed at the 3.6-meter height, pointing straight down to optimise overview over the study area. There is a significant overlap between the camera images to not miss events taking place at the border between the cameras. See Figure~\ref{fig:old} for some example frames. In total 2315 hours (1 month) of 800x600 video at 16 Frames Per Second (FPS), was collected.
 
 The cameras were calibrated to compensate for lens distortion and rectified. Although the cameras were physically mounted to point fairly straight down, they were still slightly tilted. This tilting was synthetically removed during the rectification. The result of this calibration is video images where the cows have the same size regardless of where in the image they appear. Also, the scan-lines of the three different cameras become aligned, which allows them to be stitched together to form an overview of the entire waiting area.
 
@@ -180,14 +180,14 @@ MaxPool(stride=2) & 2x2 &  \\
 
 Conv + BNorm + Relu & 1x1 & 1024 \\
 Conv + BNorm + Relu & 1x1 & 1024 \\
-Conv + BNorm + Relu & 1x1 & 5 \\
+Conv  & 1x1 & 5 \\
 Softmax & & \\
 \hline
 
 \end{tabular}
 \end{center}
 \caption{CNN architecture for landmark detection. 
-%The input is an image of any size with 3 rgb channels scaled to the range $\left[0,\,1\right]$. The output is probability map segmenting the entire image into 5 classes: Ground, Cow front middle, Cow center, Cow back middle and Cow head.
+The input is an image of any size with 3 rgb channels scaled to the range $\left[0,\,1\right]$. The output is probability map segmenting the entire image into 5 classes: Ground, Cow front middle, Cow center, Cow back middle and Cow head.
 }
 \label{tab:cownet}
 \end{table}
@@ -317,7 +317,8 @@ Note that this is in addition to the filtering by number of cows performed in Se
 A CNN cow detection system has been developed. It can detect and count the cows present in the image with high precision. 97 \% of the test images were perfectly interpreted in the sense that the system was able to place a rotated rectangle on each cow and nowhere else, c.f. Figure \ref{fig:res}. This detector was used to discard 38 \% of the recorded video as uninteresting while only losing 1 \% of the interesting video.
 
 \section{Acknowledgement}
-The computations were performed on resources provided by the Swedish National Infrastructure for Computing (SNIC) at Lunarc. 
+The computations were performed on resources provided by the Swedish National Infrastructure for Computing (SNIC) at Lunarc. The Swedish Research Council for Environment, Agricultural Sciences and Spatial Planning (FORMAS) is acknowledged for the funding of the project.​
+
 
 
 \bibliographystyle{plain}
