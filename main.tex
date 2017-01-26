@@ -63,7 +63,7 @@ Finally, a Convolutional Neural Network (CNN)  was trained to detect the cows in
   \includegraphics[width=0.9\textwidth]{full.jpg}
 \end{center}
   \caption{The frames from Figure~\ref{fig:old} projected onto the cow shoulder plane and stitched together}
-  \label{fig:old}
+  \label{fig:stitch}
 \end{figure}
 
 
@@ -73,6 +73,37 @@ This is the plane in which all of the landmarks except for the head is expected 
 
 In addition to the markers, the focal length and lens distortion parameters were provided by the camera manufacturer.
 The lens distortion was removed, and a homograph was estimated that projected each of the camera images onto the cow shoulder plane. Figure~\ref{fig:stitch} shows a view stitched together from all three images in Figure~\ref{fig:old}. It shows an overview of the entire waiting area. At the borders between the cameras, the image becomes strange as one cow there is viewed from different directions on opposite sides of the border. However, this image is only used for illustration. There is enough overlap between the images to allow them to be processed one by one and then the resulting detections can be combined using this calibration.
+
+By using homogeneous coordinates, the pinhole camera model that forms 2D image pixel $x=\left(x_1, x_2, 1\right)$ by projecting world 3D points $X=\left(X_1, X_2, X_3, 1\right)$ using a camera matrix $P$ can be formed as
+
+\begin{equation}
+	\lambda x = P X = K \left(
+	\begin{array}{cc}
+		R & t \\
+	\end{array}
+	\right) X = 
+	\left(
+	\begin{array}{ccc}
+		f & 0 & p_x  \\
+		0 & f & p_y  \\
+		0 & 0 & 1  \\
+	\end{array}
+	\right)
+	\left(
+	\begin{array}{cc}
+		R & t \\
+	\end{array}
+	\right) X	
+\end{equation} 
+
+were $f$ is the focal length of the camera and $\left(p_x, p_y\right)$ it's principal point while $t$ and $R$  define it's 3D position and orientation. This projective image is then distorted using some lens distortion function, $\hat x = f_\text{dist}\left(K^-1x\right)$. Here a radial fish eye lens distortion model is used. By using nominal image coordinates, $\lambda x_n = K^{-1} x$ and $\hat x_n = \left(\hat x_1 - p_x, \hat x_2 - p_y, 1\right)$ the inverse of this distortion function can be express as 
+
+\begin{equation}
+	\left| x_n \right| = \tan \left( \sum_i k_i \left| \hat x_n \right|^i \right)
+\end{equation}
+
+where $k_i$ is the set of distortion parameters and 
+$\left| x \right| = \sqrt{x_1^2 + x_2^2}$.
 
 FIXME: center estimation, 
 
