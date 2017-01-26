@@ -68,12 +68,11 @@ Finally, a Convolutional Neural Network (CNN)  was trained to detect the cows in
 
 
 The classical pinhole camera model augmented with a lens distortion model was used to model the camera.
-The camera setup was calibrated by placing markers on the walls and on stands in the middle of the room. They were all placed at the same height and thus defined a plane. The mean cow heigh in the barn was measured and the plane was place at their shoulder height. This height was estimated to be 1.49 meters with a standard deviation of 0.05 by
-measuring twelve random cows in the study area.
+The camera setup was calibrated by placing markers on the walls and stands in the middle of the room. They were all placed at the same height and thus defined a plane. The mean cow height in the barn was measured, and the plane was placed at their shoulder height. This height was estimated to be 1.49 meters with a standard deviation of 0.05 by measuring twelve random cows in the study area.
 This is the plane in which all of the landmarks except for the head is expected to be found. By projecting detected landmarks back and forth between the camera images and this plane, detections from different cameras can be matched.
 
 In addition to the markers, the focal length and lens distortion parameters were provided by the camera manufacturer.
-The lens distortion was removed and an homograph was estimated that projected each of the camera images onto the cow shoulder plane. Figure~\ref{fig:stitch} shows a view stitched together from all three images in Figure~\ref{fig:old}. It shows an overview of the entire waiting area. At the borders between the cameras the image become strange as one cow there is viewed from different directions on opposite sides of the border. However, this image is only used for illustration. There is enough overlap between the images to allow them to be processed one by one and then the resulting detections can be combined using this calibration.
+The lens distortion was removed, and a homograph was estimated that projected each of the camera images onto the cow shoulder plane. Figure~\ref{fig:stitch} shows a view stitched together from all three images in Figure~\ref{fig:old}. It shows an overview of the entire waiting area. At the borders between the cameras, the image becomes strange as one cow there is viewed from different directions on opposite sides of the border. However, this image is only used for illustration. There is enough overlap between the images to allow them to be processed one by one and then the resulting detections can be combined using this calibration.
 
 FIXME: center estimation, 
 
