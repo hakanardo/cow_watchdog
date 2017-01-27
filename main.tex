@@ -39,15 +39,7 @@ Most previous work on detecting cows using video cameras have focused on monitor
 The current state of art for detecting cows freely moving around was presented by Porto et al. \cite{porto2015automatic}. They use a Viola-Jones based detector and need 
 6 cameras to cover a $15.4 \times 3.8$ m area and detect cows in 3 different orientations: vertical, hroizontal and dioganal with a hitrate of 90\%. They do not use separate detectors for the two different diagonals which means that producing rotated boundingbox from their results would not be straight forward. In the work presented in this paper, only 3 cameras was need to cover a $18 \times 6$ m area and detect cows in 32 different orientations with a hitrate of 97\%. Note that the hitrates are from different datasets, and that the dataset used in this article have larger variations in viewpoints due to the use of fewer cameras to cover the same area.
 
-single season (1 week)
-3 different orientations
-vioal jones detector
-"were highly affected by the shadows" => "worst operating
-conditions for the CVBS occurred in the summer"
-90\% hitrate (92\% if orientation was known)
-
-
-YOLO, SSD: varying size and aspectratio byt fix rotation
+General purpose object detection frameworks such as YOLO9000 \cite{FIXME} and SSD \cite{FXIME} have very good performance. They do however focus on detecting objects of varying size and aspect ratio but with fix orientation. In the scenario considered in this paper, the size and aspect ratio is fixed and known while orientation (rotation) varies and have to be estimated.
 
 %http://www.shengfenghe.com/uploads/1/5/1/3/15132160/oop_iccv15.pdf
 rotated boxes
@@ -334,6 +326,9 @@ Note that this is in addition to the filtering by a number of cows performed in 
 A CNN cow detection system has been developed. It can detect and count the cows present in the image with high precision. 97 \% of the test images were perfectly interpreted in the sense that the system was able to place a rotated rectangle on each cow and nowhere else, c.f. Figure \ref{fig:res}. This detector was used to discard 38 \% of the recorded video as uninteresting while only losing 1 \% of the interesting video.
 
 FIXME: season variantions
+"were highly affected by the shadows" => "worst operating
+conditions for the CVBS occurred in the summer"
+
 
 \section{Acknowledgement}
 The computations were performed on resources provided by the Swedish National Infrastructure for Computing (SNIC) at Lunarc. The Swedish Research Council for Environment, Agricultural Sciences and 
