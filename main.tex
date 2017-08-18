@@ -1,4 +1,8 @@
-\documentclass{IET}
+\documentclass{cta-author}
+
+\newtheorem{theorem}{Theorem}{}
+\newtheorem{corollary}{Corollary}{}
+\newtheorem{remark}{Remark}{}
 
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -11,17 +15,18 @@
 \begin{document}
 
 \title{A CNN-based Cow Interaction Watchdog}
-\author[1*]{Håkan Ardö}
-\affil{Centre for Mathematical Sciences, Lund University, Sölvegatan 18, Lund, Sweden}
-\author[2]{Oleksiy Guzhva}
-\affil{Swedish University of Agricultural Sciences, Department of Biosystems and Technology, Växtskyddsvägen 3, Box 103, 23053 Alnarp, Sweden}
-\author[1]{Mikael Nilsson}
-\author[2]{Anders Henrik Herlin}
-\affil[*]{ardo@maths.lth.se}
 
-\abstract{
-Animal behaviour and welfare can be studied and assessed by looking at different interactions occurring between the animals. Video recordings of a scene of interest are often made and then watched/evaluated by experts. However, the  interactions of interest are often fairly rare. To reduce the amount of time the experts spend on watching the uninteresting video, this paper introduces an automated watchdog system that can discard some of the recorded video material. A pilot study on cows was made where a Convolutional Neural Network (CNN) detector was used to count the number of cows in the scene and discard video where less than two cows were present. This removed 38 \% of the recordings while only losing 1 \% of the interesting video. If also the distance between the cows present in the scene was considered, then 50 \% of the recordings could be removed without loosing more than 4 \% of the interesting frames.
+\author{\au{H. Ardö$^1$} \au{O. Guzhva$^2$} \au{M. Nilsson$^1$} \au{A. H. Herlin$^2$}}
+\address{
+  \add{1}{Centre for Mathematical Sciences, Lund University, Sölvegatan 18, Lund, Sweden}
+  \add{2}{Swedish University of Agricultural Sciences, Department of Biosystems and Technology, Växtskyddsvägen 3, Box 103, 23053 Alnarp, Sweden}
+  \email{ardo@maths.lth.se}
 }
+
+
+\begin{abstract}
+Animal behaviour and welfare can be studied and assessed by looking at different interactions occurring between the animals. Video recordings of a scene of interest are often made and then watched/evaluated by experts. However, the  interactions of interest are often fairly rare. To reduce the amount of time the experts spend on watching the uninteresting video, this paper introduces an automated watchdog system that can discard some of the recorded video material. A pilot study on cows was made where a Convolutional Neural Network (CNN) detector was used to count the number of cows in the scene and discard video where less than two cows were present. This removed 38 \% of the recordings while only losing 1 \% of the interesting video. If also the distance between the cows present in the scene was considered, then 50 \% of the recordings could be removed without loosing more than 4 \% of the interesting frames.
+\end{abstract}
 
 \maketitle
 
