@@ -163,7 +163,8 @@ were the camera position is given by $\bm c = \left(c_x, c_y, 1\right)$. Figure~
 
 \section{Data annotation}
 
-The complete dataset contains three months of recordings collected from 3 cameras at 16 fps. That makes 400 million frames. Among these 1722 was randomly selected and annotated. The annotation process started before everything was recorded, so the video is sampled somewhat more densely in the beginning but the mean distance between two adjacent annotated frames is 30 min. So the annotated frames are believed to be fairly uncorrelated and should give a good representation of the distribution of frames that could be expected to be seen from these cameras.
+The complete dataset contains three months of recordings collected from 3 cameras at 16 fps. That makes 400 million frames. Among these 1722 was randomly selected and annotated. The manual annotation was started before everything was recorded. The annotation was performed with a tool that randomly selected a recorded frame and presented it to the human annotater. That means that the 1722 frames are almost an uniformly chose sample, but not exactly as the frames in the beginning of the sequence have a slightly higher probability to be included. The effect is however minor. To verify that, 
+the mean distance between two adjacent annotated frames was measured to 30 min. So the annotated frames are believed to be fairly uncorrelated and should give a good representation of the distribution of frames that could be expected to be seen from these cameras.
 
 The annotated subset contained in total 6399 cows in the images. Each cow was annotated with seven landmark points: head, left and right shoulder, front middle, left and right hip and back middle. In addition to that one additional landmark "cow centre" was defined as the mean of front middle and back middle. This data was then used to train a CNN detector.
 
