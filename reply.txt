@@ -36,28 +36,52 @@ rottaions applied. We have tried to make this more clear.
 > the mean distance between two adjacent annotated frames is 30 min." Not sure
 > what this means and its significance; how does this affects the random
 > sampling of the 1722 frames out of the 400 million frames.
+
+We've tried to explain this better.
+
 >
 > What constitutes a frame in terms of training/testing? Is it a single capture
 > from 1 of the 3 cameras or the stitched scene (i.e. one that the complete
 > containment area is in the field of view)? What is the input to the first
 > stage CNN?
+
+Sec 4 have been extened to make that dlear now.
+
 >
 > On section 5.1; it is claimed that 38% of recording is uninteresting; is this
 > percentage computed from the 6400 frames? If so what is the percentage of
 > frames that contained a single cow and consequently the percentage of frames
 > with no cows? Maybe a histogram of number of cows per frame in the dataset
-> would be useful to understand densities. The 100 frames that the watchdog
+> would be useful to understand densities.
+
+Agreed! This have been added. FIXME!!
+
+> The 100 frames that the watchdog
 > selected (50) and discarded (50) is approximately 1.5% of the evaluation
-> dataset. A higher proportion should be be evaluated. Considering that
+> dataset. A higher proportion should be be evaluated.
+
+Agreed! We've extended that 10 times to look at 1000 frames instead.
+
+> Considering that
 > current practises by animal scientists, manually inspect the video footage,
 > it would be more comprehensive and not onerous to evaluate across the
 > collected data?
+
+We have in total a full year wroth of recordings (4 months from each of 3
+cameras). That's a bit more than what current practises typically look at and
+we don't have the resources in this project to look at it all unfortunately.
+So we have to choose some sort of subset. A random sampling across the
+entire dataset allows the full variability of the dataset to be evaluated.
+
 >
 > The percentage of discarded video footage (uninteresting footage) depends on
 > the farming practises and mechanics of the particular farm. Therefore the 50%
 > of discarded video footage is specific to that farm and that period of
 > operation; this will vary from farm to farm, session, cow population and etc.
 > This should be highlighted not to misguide the reader.
+
+Agreed!
+
 >
 >
 >
