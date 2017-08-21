@@ -15,10 +15,21 @@ another paper.
 > frames that annotate manually for training purposes (Section 3), while they
 > select 6400 frames to evaluate the system (Section 5.1). Are the two sets of
 > frames mutually exclusive?
+
+It was not ensured that none of the training frames were choosen here, but
+since they both were choosen randomly from a set of 400 miljon frames, the
+chans that they are mutually exclusie is 97.2%. This is now mentioned in the
+paper.
+
 >
 > There classification output contains 32 different orientations plus one where
 > a cow is not present. How many frames are in each of the 33 classes out of
 > the 1722 frames?
+
+Each frame can contain several cows. In total there are 6399 and all of them
+can be used as examples in each of the 32 classes thanx to the random
+rottaions applied. We have tried to make this more clear.
+
 >
 > The authors state: "The annotation process started before everything was
 > recorded, so the video is sampled somewhat more densely in the beginning but
