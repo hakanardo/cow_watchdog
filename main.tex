@@ -214,7 +214,10 @@ Conv + Softmax & 1x1 & 5 \\
 \end{tabular}
 \end{center}
 \caption{CNN architecture for landmark detection. 
-%The input is an image of any size with 3 rgb channels scaled to the range $\left[0,\,1\right]$. The output is probability map segmenting the entire image into 5 classes: Ground, Cow front middle, Cow center, Cow back middle and Cow head.
+The input is an image of \\
+any size with 3 rgb channels scaled to the range $\left[0,\,1\right]$. The output is \\
+probability map segmenting the entire image into 5 classes: Ground, Cow front \\
+middle, Cow center, Cow back middle and Cow head.
 }
 \label{tab:cownet}
 \end{table}
@@ -237,7 +240,7 @@ Once the net was trained, the step length of the last maxpool layer was reduced 
 
 \subsection{Cow CNN}
 
-The second step is another CNN that works with the probability map produced by the first as input and tries to detect the cows and their orientations. The full circle is divided into 32 equally spaced orientations which generate 32 different oriented cow classes. In addition to that, there is the no cow class, which makes the total number of classes of this CNN 33. The input probabilities were turned into log likelihoods as it makes more sense when summing them together. Then the network consists of a single $ 13 \times 13 $ convolutional layer. Details are shown in Table \ref{tab:cowdirnet}. The same resolution was kept after each layer which means the relationship between pixels coordinates in the output map and the original input frame is the same as for the landmark CNN.
+The second step is another fully convolutional CNN that works with the probability map produced by the first as input and tries to detect the cows and their orientations. The full circle is divided into 32 equally spaced orientations which generate 32 different oriented cow classes. In addition to that, there is the no cow class, which makes the total number of classes of this CNN 33. The input probabilities were turned into log likelihoods as it makes more sense when summing them together. Then the network consists of a single $ 13 \times 13 $ convolutional layer. Details are shown in Table \ref{tab:cowdirnet}. The same resolution was kept after each layer which means the relationship between pixels coordinates in the output map and the original input frame is the same as for the landmark CNN.
 
 \begin{table}
 \begin{center}
@@ -253,8 +256,12 @@ Softmax & & \\
 \hline
 \end{tabular}
 \end{center}
-\caption{CNN architecture to detect oriented cows
-%cows and their orientation. The input is the 5 channel probability map from the landmark detector with the last MaxPool removed to increase resolution. The output is a probability map that segments the image into either background or cow in one of 32 different orientations.
+\caption{CNN architecture to detect
+cows and their orientation. The input is \\
+the 5 channel probability map from the landmark detector with the last \\
+MaxPool removed to increase resolution. The output is a probability map that \\
+segments the image into either background or cow in one of 32 different \\
+orientations.
 }
 \label{tab:cowdirnet}
 \end{table}
@@ -273,7 +280,7 @@ Softmax & & \\
   \label{fig:res}
 \end{figure*}
 
- The net was then applied to the full rectified training images producing probability maps of $44\times 46\times 5$ pixels. These were used as training examples for the cow detection net (without splitting them into patches). Output ground truth probability maps of $44\times 46\times 33$ pixels were constructed from the annotations by projecting each cow, $i$, center point into the probability map as $\left( x_i, y_i \right)$ and calculate its angle $a_i$ as the angle of the line between front middle and back middle landmarks. Then a binary $44\times 46\times 33$ mask $B\left( x, y, c \right)$ is formed, containing a background mask
+ The net was then applied to the full rectified training images producing probability maps of $44\times 46\times 5$ pixels. These were used as training examples for the cow detection net (without splitting them into patches). Random rotations $\pm 180$ degrees and translationts $\pm 16$ pixels were applied to both input images and their annotations. This means that all the $6399$ annotated cows will eventually be used as a positive example to each of the $32$ orientation classes. Output ground truth probability maps of $44\times 46\times 33$ pixels were constructed from the annotations by projecting each cow, $i$, center point into the probability map as $\left( x_i, y_i \right)$ and calculate its angle $a_i$ as the angle of the line between front middle and back middle landmarks. Then a binary $44\times 46\times 33$ mask $B\left( x, y, c \right)$ is formed, containing a background mask
 \begin{equation}
 B\left( x, y, 32 \right) = \left\lbrace
 \begin{array}{clc}
@@ -302,7 +309,7 @@ B\left( x, y, c \right) = \left\lbrace
 \end{array}
 \right.
 \end{equation}
-for $0\leq c \leq 31$ and all $i$. The $\mathrm{adist}$ function calculates the absolute angular distance between two angles. The ground truth probability masks are then produced by normalising $B$ to sum to $1$ for each pixel. Finally, the network is trained using the same hyper parameters as described above.
+for $0\leq c \leq 31$ and all $i$. The $\mathrm{adist}$ function calculates the absolute angular distance between two angles. The ground truth probability masks are then produced by normalising $B$ to sum to $1$ for each pixel. Finally, the network is trained using the same hyper parameters as for the landmark CNN.
 
 \section{Watchdog evaluation}
 \subsection{Cow detection}

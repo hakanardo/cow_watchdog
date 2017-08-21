@@ -1,0 +1,85 @@
+>
+> The authors are annotating 7 landmarks points for each cow but only use 4 for
+> their evaluation. The additional 3 landmarks could improve results and that
+> could be considered a more significant contribution along with the
+> evaluation over the complete dataset.
+
+We have some doubts about if that is the case with the CNN used in the paper and
+we have extended the paper with our reasoning here. Different approaches that
+could utilize all 7 landmarks would however be interesting, but that is
+another paper.
+
+>
+>
+> More clarity is required on the dataset selection; the authors select 1722
+> frames that annotate manually for training purposes (Section 3), while they
+> select 6400 frames to evaluate the system (Section 5.1). Are the two sets of
+> frames mutually exclusive?
+>
+> There classification output contains 32 different orientations plus one where
+> a cow is not present. How many frames are in each of the 33 classes out of
+> the 1722 frames?
+>
+> The authors state: "The annotation process started before everything was
+> recorded, so the video is sampled somewhat more densely in the beginning but
+> the mean distance between two adjacent annotated frames is 30 min." Not sure
+> what this means and its significance; how does this affects the random
+> sampling of the 1722 frames out of the 400 million frames.
+>
+> What constitutes a frame in terms of training/testing? Is it a single capture
+> from 1 of the 3 cameras or the stitched scene (i.e. one that the complete
+> containment area is in the field of view)? What is the input to the first
+> stage CNN?
+>
+> On section 5.1; it is claimed that 38% of recording is uninteresting; is this
+> percentage computed from the 6400 frames? If so what is the percentage of
+> frames that contained a single cow and consequently the percentage of frames
+> with no cows? Maybe a histogram of number of cows per frame in the dataset
+> would be useful to understand densities. The 100 frames that the watchdog
+> selected (50) and discarded (50) is approximately 1.5% of the evaluation
+> dataset. A higher proportion should be be evaluated. Considering that
+> current practises by animal scientists, manually inspect the video footage,
+> it would be more comprehensive and not onerous to evaluate across the
+> collected data?
+>
+> The percentage of discarded video footage (uninteresting footage) depends on
+> the farming practises and mechanics of the particular farm. Therefore the 50%
+> of discarded video footage is specific to that farm and that period of
+> operation; this will vary from farm to farm, session, cow population and etc.
+> This should be highlighted not to misguide the reader.
+>
+>
+>
+>
+> Reviewer: 2
+>
+> Comments to the Author The abstract does not represent the content of the
+> paper. The comparison with earlier work using similar techniques is over
+> emphasized given the limitations of the techniques. Improvement of the
+> English Results No statistics or correlative analyses are given for any of
+> the comparisons. summary of the experimental results is not explain properly.
+>
+> Reviewer: 3
+>
+> Comments to the Author It's unclear what the final output of the system
+> actually is : The results are per-frame, but how many actual interactions are
+>  missed ? Presumably, even if some frames are incorrectly classified, actual
+>  cow-cow interactions from other, adjacent, frames are still found ?
+>
+> The paper is generally well written. However there are a substantial number
+> of typos (including double-quotes the wrong way around) and English grammar
+> issues. I'd recommend getting native speaker to proof-read this thoroughly.
+> Typos, grammar, quotes
+>
+> You need to explain how the following is actually achieved : "The learning
+> rate was initiated to 1.0 and reduced by a factor 10 each time the validation
+>  error flattens."
+>
+> Some comments such as "A lot of false detections were made." need quantifying
+> more thoroughly.
+>
+> Citations: YOLO is perhaps more commonly cited as a CVPR paper, rather than
+ the
+> CoRR route ?
+>
+>
