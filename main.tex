@@ -318,9 +318,19 @@ To evaluate the system, 6400 frames spread over the entire recording were proces
 It was not ensured that none of the training frames were choosen here, but since they both were choosen randomly from a set of 400 miljon frames, the chans that they are mutually exclusie is 97.2%.
 A simple watchdog extracting frames containing two or more cows was implemented. That would be the most basic requirement for interaction, and already with this simple criteria, discarded 38 \% of the recordings. To verify that the discarded video was uninteresting, 500 random frames selected by the watchdog and 500 random frames discarded by the watchdog were automatically annotated using the CNN results and studied manually. Cows intersecting the borders were ignored in the sense that the images were considered correct regardless of whether such border cases was detected or not. A detection was considered correct if it's rotated bounding box overlapped more than 50\% of the cow.
 
+\begin{figure}[tb]
+\begin{center}
+  \includegraphics[width=0.45\textwidth]{cow_nbr_hist.pdf}
+\end{center}
+  \caption{A histogram of the number of cows detected per frame. Frames with $0$ or $1$ cows are uninteresting, which acording to this detector is 38 \% of the frames.}
+  \label{fig:cowhist}
+\end{figure}
+
+
 Most, 94.5 \%, of the images were perfectly interpreted, i.e. all cows present were detected and no extra detections.
-Most of the errors were made in crowded situations where more than two cows were present and detected and thus classified correctly acording to the watchdog critera. Only a single case was found were the watchdog erroneously discarded a frame, resulting in a watchdog hit rate of 99.9 \%. In total, those 1000 images contain 2041 cows. 16 of those were not detected and 48 extra detections were made yielding a cow hit rate of 99.22 \% with a false alarm rate of 2.35\%. Some example detections are shown in Figure \ref{fig:res}.
-Two of the reasons for mistakes are inter-cow occlusion and the combination of landmarks from different individuals.
+Most of the errors were made in crowded situations where more than two cows were present and detected and thus classified correctly acording to the watchdog critera. Only a single case was found were the watchdog erroneously discarded a frame, resulting in a watchdog accuracy of 99.9 \%. Note that this is a frame accuracy and an interaction consists of multiple frames, so missing an entire interaction would be extremly unlikely even though the frames within that interaction would be somewhat correlated. An interactionIn total, those 1000 images contain 2041 cows. 16 of those were not detected and 48 extra detections were made yielding a cow hit rate of 99.22 \% with a false alarm rate of 2.35\%. Some example detections are shown in Figure \ref{fig:res}.
+Two of the reasons for mistakes are inter-cow occlusion and the combination of landmarks from different individuals. A  
+histogram of the number of cows detected per frame is presented in Figure~\ref{fig:cowhist}.
 
 The evaluation runs at 6.55 fps on a single Tesla K20m GPU, using single precision floats.
 

@@ -54,7 +54,7 @@ Sec 4 have been extened to make that dlear now.
 > with no cows? Maybe a histogram of number of cows per frame in the dataset
 > would be useful to understand densities.
 
-Agreed! This have been added. FIXME!!
+Agreed! This have been added.
 
 > The 100 frames that the watchdog
 > selected (50) and discarded (50) is approximately 1.5% of the evaluation
@@ -100,6 +100,9 @@ Agreed!
 > actually is : The results are per-frame, but how many actual interactions are
 >  missed ? Presumably, even if some frames are incorrectly classified, actual
 >  cow-cow interactions from other, adjacent, frames are still found ?
+
+Good point, we added a comment about this.
+
 >
 > The paper is generally well written. However there are a substantial number
 > of typos (including double-quotes the wrong way around) and English grammar
