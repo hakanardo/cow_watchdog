@@ -45,7 +45,7 @@ We've tried to explain this better.
 > containment area is in the field of view)? What is the input to the first
 > stage CNN?
 
-Sec 4 have been extened to make that dlear now.
+Sec 4 have been extened to make that clear now.
 
 >
 > On section 5.1; it is claimed that 38% of recording is uninteresting; is this
