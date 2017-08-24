@@ -58,7 +58,7 @@ time has to be spent on looking at raw video data to find potentially interestin
   \includegraphics[width=0.3\textwidth]{old-1.jpg}
   \includegraphics[width=0.3\textwidth]{old-0.jpg}
 \end{center}
-  \caption{Example frames the recorded video.}
+  \caption{Example frames from recorded video.}
   \label{fig:old}
 \end{figure*}
 
@@ -193,7 +193,7 @@ from different cameras can be matched.
 
 In addition to the markers, the focal length and lens distortion parameters were provided by the camera
 manufacturer.
-The lens distortion was removed, and a homograph was estimated that projected each of the camera images onto
+The lens distortion was removed, and a homography was estimated that projected each of the camera images onto
 the cow shoulder plane. Figure~\ref{fig:stitch} shows a view stitched together from all three images in
 Figure~\ref{fig:old}. It shows an overview of the entire waiting area. At the borders between the cameras,
 the image becomes strange as cows there are viewed from different directions on opposite sides of the border.
@@ -283,8 +283,7 @@ to the length of one cow.
 The complete dataset contains three months of recordings collected from 3 cameras at 16 fps. That makes 400
 million frames. Among these 1722 was randomly selected and annotated. The manual annotation was started
 before everything was recorded. The annotation was performed with a tool that randomly selected a recorded
-frame and presented it to the human annotator. That means that the 1722 frames are almost an uniformly chose
-sample, but not exactly as the frames in the beginning of the sequence have a slightly higher probability to
+frame and presented it to the human annotator. That means that the 1722 frames are almost uniformly chosen over time, but not exactly as the frames in the beginning of the sequence have a slightly higher probability to
 be included. The effect is however minor. To verify that,
 the mean distance between two adjacent annotated frames was measured to be 30 min. So the annotated frames are
 believed to be fairly uncorrelated and should give a good representation of the distribution of frames that
@@ -352,8 +351,8 @@ middle, Cow center, Cow back middle and Cow head.
 
 Only four of the landmarks were used: head, front middle, cow centre and back middle.
 The discarded landmarks left and right shoulder are close to front middle while the discarded landmarks left
-and right hip are close to back middle. They don't give much extra information about the cows position or
-orientation and including them will slow down the experiments. Also, due to the max-pooling used in the CNN,
+and right hip are close to back middle. This since they do not give much extra information about the cows position or
+orientation and including them would slow down the experiments. Also, due to the max-pooling used in the CNN,
 the output feature map has too low resolution to separate such close landmarks well, which mean that they
 might compete for the same pixels in the output probability map. That might actually harm performance.
 However, extending to use more landmarks is straightforward. The architecture of this network is a fully
@@ -385,7 +384,7 @@ where $n$ is the number of inputs\cite{DBLP:journals/corr/HeZR015}. The networks
 decay of
 $0.0001$ and optimised using stochastic gradient descent with $0.9$ momentum. The
 learning rate was initiated to $1.0$ and reduced by a factor $10$ each time the validation
-error flattens. This was achieved by periodically during the training evaluating the CNN on the validation data
+error flattens. This was achieved by periodically, during the training, evaluating the CNN on the validation data
 (10\% of the annotated data that was not used for training) and when the validation error rated stopped decreasing,
 the learning rate was reduced.
 
