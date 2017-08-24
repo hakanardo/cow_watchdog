@@ -385,7 +385,9 @@ where $n$ is the number of inputs\cite{DBLP:journals/corr/HeZR015}. The networks
 decay of
 $0.0001$ and optimised using stochastic gradient descent with $0.9$ momentum. The
 learning rate was initiated to $1.0$ and reduced by a factor $10$ each time the validation
-error flattens. 
+error flattens. This was achieved by periodically during the training evaluating the CNN on the validation data 
+(10 \% of the annotated data that was not used for training) and when it's error rated stopped decreasing, 
+the learning rate was reduced.
 
 Once the net was trained, the step length of the last maxpool layer was reduced from two to one to increase 
 the output resolution. After that pixels at $\left(x, y\right)$ in the probability maps corresponds to 
