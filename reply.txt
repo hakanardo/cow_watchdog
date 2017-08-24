@@ -17,11 +17,11 @@ improve the paper. What follows is our attention to issues addressed.
 >results and that could be considered a more significant contribution along with the evaluation over the complete dataset.
 
 We agree that approaches that would be able to utilize all 7 landmarks would be of interest. However extending the CNN
-used in this work to those particular 7 landmarks might be a bad idea as some of them are realy close. The low 
+used in this work to those particular 7 landmarks might be a bad idea as some of them are really close. The low 
 resolution of the landmark probability map is low due
-to all the maxpooling and close landmarks might compete for the same pixel there, which would harm performace. 
-Also, for the particular watchdog criterias 
-studied in this paper, they would probaboly not prodive that much extra information anyway. So we argue that using all 7 landmarks 
+to all the max-pooling and close landmarks might compete for the same pixel there, which might harm performance. 
+Also, for the particular watchdog criteria's 
+studied in this paper, they would probably not provide that much extra information anyway. So we argue that using all 7 landmarks 
 would call for a different approach and would aid different goals which would make it a different paper.
 
 However, we agree that our point in this matter is not well described in the paper and we have added our reasoning in the paper (TODO see page...).
