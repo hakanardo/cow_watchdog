@@ -36,7 +36,7 @@ video material based on user-defined criteria. A pilot study on cows was made wh
 Network (CNN) detector was used to detect and count the number of cows in the scene as well as include 
 distances and interactions between cows as filtering criteria. This approach removed 38\% (50\% for 
 additional filter parameters) of the recordings while only losing 1\% (4\%) of the potentially interesting 
-video sequences. 
+video frames. 
 \end{abstract}
 
 \maketitle
@@ -75,7 +75,7 @@ deleterious and can reflect a struggle for resources.
 In this paper, the objective was to take the first step towards an automated system for behavioural analysis. 
 The study area was filmed using video cameras. Then an automated watchdog system removed unnecessary parts 
 (e.g. those, containing events that are not relevant or without animals in the scene) of the recorded video 
-material. The remaining video sequences should still have to be studied by experts, but the time spent 
+material. The remaining video sequences still have to be studied by experts, but the time spent 
 looking at uninteresting video sequences could be significantly reduced. 
 
 This was achieved by developing a cow detector that detects cows in the scene and represents them with 
@@ -286,7 +286,7 @@ before everything was recorded. The annotation was performed with a tool that ra
 frame and presented it to the human annotater. That means that the 1722 frames are almost an uniformly chose 
 sample, but not exactly as the frames in the beginning of the sequence have a slightly higher probability to 
 be included. The effect is however minor. To verify that, 
-the mean distance between two adjacent annotated frames was measured to 30 min. So the annotated frames are 
+the mean distance between two adjacent annotated frames was measured to be 30 min. So the annotated frames are 
 believed to be fairly uncorrelated and should give a good representation of the distribution of frames that 
 could be expected to be seen from these cameras.
 
@@ -355,14 +355,14 @@ The discarded landmarks left and right shoulder are close to front middle while 
 and right hip are close to back middle. They don't give much extra information about the cows position or 
 orientation and including them will slow down the experiments. Also, due to the max-pooling used in the CNN, 
 the output feature map has too low resolution to separate such close landmarks well, which mean that they 
-might compete for the same pixels in the output probability map, which might actually harm performance. 
+might compete for the same pixels in the output probability map. That might actually harm performance. 
 However, extending to use more landmarks is straightforward. The architecture of this network is a fully 
 convolutional CNN similar to VGG \cite{Simonyan14c} with batch normalisation 
 \cite{DBLP:journals/corr/IoffeS15} after each convolution step. That means that instead of fully connected 
 layers at the end, $1 \times 1$ convolutions are used. Details are shown in Table \ref{tab:cownet}. Only 
 valid outputs from the convolutional and maxpool layers are kept.
 
-Applying the network to a high resolution image with apply the landmark detector to every position in the 
+Applying the network to a high resolution image will apply the landmark detector to every position in the 
 image, resulting in an effective implementation of a sliding window detector. It can be applied to images of 
 resolution $118 + 32 n_w$ times $118 + 32 n_h$ and will produce an output image of resolution $n_w \times 
 n_h$ with five channels. Each of the channels contains the detection probability of each of the five classes 
@@ -377,7 +377,7 @@ do not care patches were selected at random centres at distances between $16$ an
 The ground truth probability of these patches belong to the class of the landmark was set to $0.5$, and the 
 probability that they are ground was set to $0.5$. In some cases, several landmarks appear within $32$ pixels 
 of the patch centre. In that case, the probability mass was distributed uniformly among all involved classes. 
-Also, the pacthes were randomly rotated $\pm 180$ degrees. 
+Also, all pacthes were randomly rotated $\pm 180$ degrees. 
 
 The weights of the convolutions were initiated using random samples draw from a Gaussian
 distribution truncated at $2\sigma$, with standard deviation $\sigma=\sqrt{\frac{2}{n}}$,
@@ -487,14 +487,14 @@ each pixel. Finally, the network is trained using the same hyper parameters as f
 \label{sec:num}
 To evaluate the system, 6400 frames spread over the entire recording were processed by the CNN. 
 It was not ensured that none of the training frames were choosen here, but since they both were choosen 
-randomly from a set of 400 miljon frames, the chans that they are mutually exclusie is 97.2%.
+randomly from a set of 400 miljon frames, the chans that they are mutually exclusie is 97.2\%.
 A simple watchdog extracting frames containing two or more cows was implemented. That would be the most basic 
-requirement for interaction, and already with this simple criteria, discarded 38 \% of the recordings. To 
+requirement for interaction, and already this simple criteria, discarded 38 \% of the recordings. To 
 verify that the discarded video was uninteresting, 500 random frames selected by the watchdog and 500 random 
 frames discarded by the watchdog were automatically annotated using the CNN results and studied manually. 
 Cows intersecting the borders were ignored in the sense that the images were considered correct regardless of 
 whether such border cases was detected or not. A detection was considered correct if it's rotated bounding 
-box overlapped more than 50\% of the cow.
+box overlapped more than 50\% of the cow back.
 
 \begin{figure}[tb]
 \begin{center}
@@ -512,7 +512,7 @@ Most of the errors were made in crowded situations where more than two cows were
 thus classified correctly acording to the watchdog critera. Only a single case was found were the watchdog 
 erroneously discarded a frame, resulting in a watchdog accuracy of 99.9 \%. Note that this is a frame 
 accuracy and an interaction consists of multiple frames, so missing an entire interaction would be extremly 
-unlikely even though the frames within that interaction would be somewhat correlated. An interactionIn total, 
+unlikely even though the frames within that interaction would be somewhat correlated. In total, 
 those 1000 images contain 2041 cows. 16 of those were not detected and 48 extra detections were made yielding 
 a cow hit rate of 99.22 \% with a false alarm rate of 2.35\%. Some example detections are shown in Figure 
 \ref{fig:res}.
@@ -604,7 +604,7 @@ A CNN cow detection system has been developed. It can detect and count the cows 
 high precision. 92.8 \% of the test images were perfectly interpreted in the sense that the system was able 
 to place a rotated rectangle on each cow and nowhere else. This detector was used to discard 50 \% of the 
 recorded video as uninteresting while only losing 4 \% of the interesting video. If detecting a single frame 
-per interaction 60 \% of the test dataset could be automatically discarded without loosing any of the 
+per interaction is enough, 60 \% of the test dataset could be automatically discarded without loosing any of the 
 interactions. Regarding detection of single cows, the hitrate was 97 \% with a false alarm rate of 2.9 \%. 
 Note that these numbers depend on how large portion of the recorded video is actually interesting and how 
 often the scene is crowded (which is when most mistakes are made). This will vary between different farms and 
@@ -614,7 +614,7 @@ Another important conclution was that the even though it is an indoor scene, the
 by the varying seasons are significant. It was not enought to collect data from three months. Insted both 
 traning data and evalutation data from different seasons are needed to build a system that can operate all 
 year around. This seems to concur with the findings of Porto et al. \cite{porto2015automatic} who write that 
-their detector, CVBS 
+their detector, CVBS, 
 "were highly affected by the shadows" and that "worst operating
 conditions for the CVBS occurred in the summer".
 
