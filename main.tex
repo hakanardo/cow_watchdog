@@ -386,7 +386,7 @@ decay of
 $0.0001$ and optimised using stochastic gradient descent with $0.9$ momentum. The
 learning rate was initiated to $1.0$ and reduced by a factor $10$ each time the validation
 error flattens. This was achieved by periodically during the training evaluating the CNN on the validation data
-(10 \% of the annotated data that was not used for training) and when the validation error rated stopped decreasing,
+(10\% of the annotated data that was not used for training) and when the validation error rated stopped decreasing,
 the learning rate was reduced.
 
 Once the net was trained, the step length of the last maxpool layer was reduced from two to one to increase
@@ -503,20 +503,20 @@ box overlapped more than 50\% of the cow back.
   \includegraphics[width=0.45\textwidth]{cow_nbr_hist.pdf}
 \end{center}
   \caption{A histogram of the number of cows detected per frame. Frames with $0$ or $1$ cows are
-uninteresting, which acording to this detector is 38 \% of the frames.}
+uninteresting, which according to this detector is 38\% of the frames.}
   \label{fig:cowhist}
 \end{figure}
 
 
-Most, 94.5 \%, of the images were perfectly interpreted, i.e. all cows present were detected and no extra
+Most, 94.5\%, of the images were perfectly interpreted, i.e. all cows present were detected and no extra
 detections.
 Most of the errors were made in crowded situations where more than two cows were present and detected and
 thus classified correctly according to the watchdog criteria. Only a single case was found were the watchdog
-erroneously discarded a frame, resulting in a watchdog accuracy of 99.9 \%. Note that this is a frame
+erroneously discarded a frame, resulting in a watchdog accuracy of 99.9\%. Note that this is a frame
 accuracy and an interaction consists of multiple frames, so missing an entire interaction would be extremely
 unlikely even though the frames within that interaction would be somewhat correlated. In total,
 those 1000 images contain 2041 cows. 16 of those were not detected and 48 extra detections were made yielding
-a cow hit rate of 99.22 \% with a false alarm rate of 2.35\%. Some example detections are shown in Figure
+a cow hit rate of 99.22\% with a false alarm rate of 2.35\%. Some example detections are shown in Figure
 \ref{fig:res}.
 Two of the reasons for mistakes are inter-cow occlusion and the combination of landmarks from different
 individuals. A
@@ -558,7 +558,7 @@ out and not used during the training. This set was used to evaluate the new dete
 408 cows, and 396 of these were detected with only 6 extra detections. That gives a cow hit rate of 97\%
 with a false alarm rate of 2.9\%. In terms of frames 92.8\% were perfectly interpreted while there were
 mistakes made in 14 of the frames. Among those 14, 13 contained more than one cow and thus the hit rate of
-the watchdog finding frames with two or more cows were 99.5 \%.
+the watchdog finding frames with two or more cows were 99.5\%.
 
 \subsection{Interaction detection}
 To remove even more of the uninteresting video, an additional feature, the minimum distance between the cows
@@ -604,17 +604,17 @@ positive rate).}
 
 \section{Conclusions}
 A CNN cow detection system has been developed. It can detect and count the cows present in the image with
-high precision. 92.8 \% of the test images were perfectly interpreted in the sense that the system was able
-to place a rotated rectangle on each cow and nowhere else. This detector was used to discard 50 \% of the
-recorded video as uninteresting while only losing 4 \% of the interesting video. If detecting a single frame
-per interaction is enough, 60 \% of the test dataset could be automatically discarded without losing any of the
-interactions. Regarding detection of single cows, the hitrate was 97 \% with a false alarm rate of 2.9 \%.
+high precision. 92.8\% of the test images were perfectly interpreted in the sense that the system was able
+to place a rotated rectangle on each cow and nowhere else. This detector was used to discard 50\% of the
+recorded video as uninteresting while only losing 4\% of the interesting video. If detecting a single frame
+per interaction is enough, 60\% of the test dataset could be automatically discarded without losing any of the
+interactions. Regarding detection of single cows, the hitrate was 97\% with a false alarm rate of 2.9\%.
 Note that these numbers depend on how large portion of the recorded video is actually interesting and how
 often the scene is crowded (which is when most mistakes are made). This will vary between different farms and
 studies.
 
 Another important conclusion was that the even though it is an indoor scene, the lighting variations caused
-by the varying seasons are significant. It was not enought to collect data from three months. Instead both
+by the varying seasons are significant. It was not enough to collect data from three months. Instead both
 training data and evaluation data from different seasons are needed to build a system that can operate all
 year around. This seems to concur with the findings of Porto et al. \cite{porto2015automatic} who write that
 their detector, CVBS,
@@ -627,7 +627,7 @@ The computations were performed on resources provided by the Swedish National In
 (SNIC) at Lunarc. The Swedish Research Council for Environment, Agricultural Sciences and
 Spatial Planning (FORMAS) is acknowledged
 for the funding of the project. The farmer, Mikael Palm, is acknowledged for the use of his diary bran and
-cows during the pilot studie.
+cows during the pilot study.
 
 
 
