@@ -16,10 +16,14 @@ improve the paper. What follows is our attention to issues addressed.
 >The authors are annotating 7 landmarks points for each cow but only use 4 for their evaluation. The additional 3 landmarks could improve 
 >results and that could be considered a more significant contribution along with the evaluation over the complete dataset.
 
-There are choices made here that lead us to focus on the the three points. For example, the design of the CNN to accurately find the 4 remaining points
-could be consider as more of a fine-grained analysis topic.
-The proposed system should probably be extended with more processing steps to better handle the localization. Different approaches that
-could find and utilize all 7 landmarks would however be interesting, but we argue that this would deserve another paper.
+We agree that approaches that would be able to utilize all 7 landmarks would be of interest. However extending the CNN
+used in this work to those particular 7 landmarks might be a bad idea as some of them are realy close. The low 
+resolution of the landmark probability map is low due
+to all the maxpooling and close landmarks might compete for the same pixel there, which would harm performace. 
+Also, for the particular watchdog criterias 
+studied in this paper, they would probaboly not prodive that much extra information anyway. So we argue that using all 7 landmarks 
+would call for a different approach and would aid different goals which would make it a different paper.
+
 However, we agree that our point in this matter is not well described in the paper and we have added our reasoning in the paper (TODO see page...).
 
 >More clarity is required on the dataset selection; the authors select 1722 frames that annotate manually for training purposes (Section 3), 
