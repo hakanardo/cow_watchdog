@@ -115,12 +115,12 @@ in viewpoints due to the use of fewer cameras at a lower height to cover a large
 
 General purpose object detection frameworks such as YOLO 
 \cite{DBLP:journals/corr/RedmonDGF15,redmon2016yolo9000} and SSD \cite{liu2016ssd} have very good 
-performance. They do, however, focus on detecting objects of varying size and aspect ratio but with fix 
+performance. They do, however, focus on detecting objects of varying size and aspect ratio but with fixed 
 orientation. In the scenario considered in this paper, the size and aspect ratio are fixed and known, while 
 orientation (rotation) varies and have to be estimated. 
 
 He et al. \cite{He_2015_ICCV} have considered rotated bounding boxes to generate general purpose objected 
-proposals. They do a local optimization over position, size, aspect ratio and rotation from an initial set of 
+proposals. They do a local optimization over position, size, aspect ratio and rotation from the initial set of 
 sampled windows. In the proposed approach the size and aspect ratio are known and fixed and an exhaustive 
 search over position and rotation is performed. That way the risk of not considering relevant rotations is 
 eliminated. Also, methodology proposed by He et al. \cite{He_2015_ICCV}  is based on hand crafted features 
@@ -140,12 +140,12 @@ clicks per training object.
 
 
 Video recordings were made using three Axis M3006-V cameras with a wide field of view, 134 degrees. They were 
-placed in the ceiling at an height of $3.6$-meters, pointing straight down to optimise overview over the 
-study area. There was a significant overlap between the camera images to not miss events taking place at the 
+placed in the ceiling at the height of $3.6$-meters, pointing straight down to optimise overview over the 
+study area. There was a significant overlap between the camera images to avoid missing events taking place at the 
 border between the cameras. See Figure~\ref{fig:old} for some example frames. In total three months of $800 
 \times 600$ video at $16$ Frames Per Second (FPS), was collected.
 
-The cameras were calibrated to compensate for lens distortion and rectified. Although the cameras were 
+The cameras were calibrated to compensate for the lens distortion and rectified. Although the cameras were 
 physically mounted to point fairly straight down, they were still slightly tilted. This tilting was 
 synthetically removed during the rectification. The result of this calibration is video images where the cows 
 have the same size regardless of where in the image they appear. Also, the scan-lines of the three different 
@@ -154,7 +154,7 @@ area c.f Figure~\ref{fig:stitch}.
 
 Finally, a Convolutional Neural Network (CNN)  was trained to detect the cows in the images, and statistics 
 about how many cows and their distances/relation to each other was extracted. Using that statistical data, 
-scientists working in a field of animal behaviour could form queries to select particular time intervals to 
+scientists working in the field of animal behaviour could form queries to select particular time intervals to 
 watch, such as "show me video clips involving at least two cows with the neck of one cow closer than one 
 meter to the body of the other".
 
