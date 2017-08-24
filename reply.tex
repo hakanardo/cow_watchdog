@@ -39,21 +39,20 @@ results and that could be considered a more significant contribution along with 
 \end{siderules}
 
 Approaches that would be able to utilize all 7 landmarks are indeed of interest. However extending the CNN
-used in this work to those particular 7 landmarks might be a bad idea as some of them are really close. The low 
-resolution of the landmark probability map is low due
+used in this work to those particular 7 landmarks might be a bad idea as some of them are really close; The resolution of the landmark probability map is low due
 to all the max-pooling and close landmarks might compete for the same pixel there, which might harm performance. 
 Also, for the particular watchdog criteria's 
-studied in this paper, they would probably not provide that much extra information anyway. So we argue that using all 7 landmarks 
+studied in this paper, they would probably not provide much extra information anyway. So we argue that using all 7 landmarks 
 would call for a different approach and would aid different goals which would make it a different paper.
 
-However, we agree that our point in this matter is not well described in the paper and we have added our reasoning in the paper (sec 4.1).
+Our point in this matter was not well described in the paper and we have added our reasoning to the paper (sec 4.1).
 
 \begin{siderules}
 More clarity is required on the dataset selection; the authors select 1722 frames that annotate manually for training purposes (Section 3), 
 while they select 6400 frames to evaluate the system (Section 5.1). Are the two sets of frames mutually exclusive?
 \end{siderules}
 
-This is indeed a valid point. It was not ensured that none of the training frames were chosen here, but
+This is indeed a valid point. It was not ensured that none of the training frames were chosen as evaluation frams, but
 since they both were chosen randomly from a set of 400 million frames, the
 chance that they are mutually exclusive is 97.2\%. Which, we argue, is sufficient to make our claims. 
 This is now mentioned in the paper (sec 5.1).
@@ -95,7 +94,7 @@ The 100 frames that the watchdog selected (50) and discarded (50) is approximate
 A higher proportion should be be evaluated. 
 \end{siderules}
 
-Great point. We have extended that 10 times to look at 1000 frames instead (sec 5.1).
+Agreed. We have extended that 10 times to look at 1000 frames instead (sec 5.1).
 
 \begin{siderules}
 Considering that current practises by animal scientists, manually inspect the video footage, it would be more 
