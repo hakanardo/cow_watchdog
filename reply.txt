@@ -4,10 +4,9 @@
 > could be considered a more significant contribution along with the
 > evaluation over the complete dataset.
 
-We have some doubts about if that is the case with the CNN used in the paper and
+We have some doubts about that with the particular CNN used in the paper and
 we have extended the paper with our reasoning here. Different approaches that
-could utilize all 7 landmarks would however be interesting, but that is
-another paper.
+could utilize all 7 landmarks would however be interesting future work.
 
 >
 >
@@ -16,7 +15,8 @@ another paper.
 > select 6400 frames to evaluate the system (Section 5.1). Are the two sets of
 > frames mutually exclusive?
 
-It was not ensured that none of the training frames were choosen here, but
+It was not ensured that none of the training frames were also choosen as 
+evaluation frames, but
 since they both were choosen randomly from a set of 400 miljon frames, the
 chans that they are mutually exclusie is 97.2%. This is now mentioned in the
 paper.
@@ -45,7 +45,7 @@ We've tried to explain this better.
 > containment area is in the field of view)? What is the input to the first
 > stage CNN?
 
-Sec 4 have been extened to make that clear now.
+Sec 4 have been extened to hopefully make that clearer now.
 
 >
 > On section 5.1; it is claimed that 38% of recording is uninteresting; is this
@@ -70,8 +70,9 @@ Agreed! We've extended that 10 times to look at 1000 frames instead.
 We have in total a full year wroth of recordings (4 months from each of 3
 cameras). That's a bit more than what current practises typically look at and
 we don't have the resources in this project to look at it all unfortunately.
-So we have to choose some sort of subset. A random sampling across the
-entire dataset allows the full variability of the dataset to be evaluated.
+So we have to choose some sort of subset. We chose a random sampling across the
+entire dataset because it allows the full variability of the entire dataset to 
+be evaluated.
 
 >
 > The percentage of discarded video footage (uninteresting footage) depends on
@@ -89,10 +90,30 @@ Agreed!
 > Reviewer: 2
 >
 > Comments to the Author The abstract does not represent the content of the
-> paper. The comparison with earlier work using similar techniques is over
-> emphasized given the limitations of the techniques. Improvement of the
-> English Results No statistics or correlative analyses are given for any of
-> the comparisons. summary of the experimental results is not explain properly.
+> paper. 
+
+We've updated the abstract to better represent the content.
+
+> The comparison with earlier work using similar techniques is over
+> emphasized given the limitations of the techniques. 
+
+??
+
+> Improvement of the English 
+
+FIXME
+
+> Results No statistics or correlative analyses are given for any of
+> the comparisons. 
+
+We present hit rates, and false alarm rates both for our work and for our work 
+(sec 5) and for related work (sec 1.1), which is the standard way of 
+evaluation this kind of work.
+
+> summary of the experimental results is not explain properly.
+
+FIXME
+
 >
 > Reviewer: 3
 >
@@ -101,13 +122,17 @@ Agreed!
 >  missed ? Presumably, even if some frames are incorrectly classified, actual
 >  cow-cow interactions from other, adjacent, frames are still found ?
 
-Good point, we added a comment about this.
+Good point, we have extended the evalutation to also present per interaction 
+results.
 
 >
 > The paper is generally well written. However there are a substantial number
 > of typos (including double-quotes the wrong way around) and English grammar
 > issues. I'd recommend getting native speaker to proof-read this thoroughly.
 > Typos, grammar, quotes
+
+FIXME
+
 >
 > You need to explain how the following is actually achieved : "The learning
 > rate was initiated to 1.0 and reduced by a factor 10 each time the validation
