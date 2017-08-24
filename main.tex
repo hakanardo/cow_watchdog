@@ -394,10 +394,10 @@ detections at $\left(16 x + 75, 16 y + 75\right)$ in the input image.
 
 \subsection{Cow CNN}
 
-The second step is another fully convolutional CNN that works with the probability map produced by the first
+The second step is another fully convolutional CNN that works with the probability map produced by the first CNN
 as input and tries to detect the cows and their orientations. The full circle is divided into 32 equally
-spaced orientations which generate 32 different oriented cow classes. In addition to that, there is the no
-cow class, which makes the total number of classes of this CNN 33. The input probabilities were turned into
+spaced orientations which generate 32 different oriented cow classes. In addition to that, there is the "no
+cow" class, which makes the total number of classes of this CNN 33. The input probabilities were turned into
 log likelihoods as it makes more sense when summing them together. Then the network consists of a single $ 13
 \times 13 $ convolutional layer. Details are shown in Table \ref{tab:cowdirnet}. The same resolution was kept
 after each layer which means the relationship between pixels coordinates in the output map and the original
@@ -534,7 +534,7 @@ The evaluation runs at 6.55 fps on a single Tesla K20m GPU, using single precisi
   \label{fig:new}
 \end{figure*}
 
-Half a year after the original recordings were made another month of video was collected, c.f
+Half a year after the original recordings were made, another month of video was collected, c.f
 Figure~\ref{fig:new}, and the original detector was tested on this data. It did however not perform very
 well. A set of 931 frames were sampled from the new recording and passed to the detector. It produced
 annotated images that were then inspected manually. Among these, 510 or 55\% of the images were perfectly
