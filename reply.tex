@@ -21,7 +21,7 @@
 \opening{Dear Editor and Reviewers,} 
  
 First, we would like to express our gratitude to the Editor and the Reviewers for taking their time to
-improve the paper. What follows is our attention to issues addressed.
+improve the paper. We believe that we have addressed all of the comments below. If you still disagree please let us know which comment you are refereeing to. What follows is our attention to issues addressed.
 
 
 \begin{siderules}
@@ -72,14 +72,16 @@ the mean distance between two adjacent annotated frames is 30 min." Not sure wha
 sampling of the 1722 frames out of the 400 million frames.
 \end{siderules}
 
-We have added text to better clarify (sec 3).
+We have added the following text to better clarify (sec 3): "The annotation was performed with a tool that randomly selected a recorded
+frame and presented it to the human annotator. That means that the 1722 frames are almost uniformly chosen over time, but not exactly as the frames in the beginning of the sequence have a slightly higher probability to
+be included. The effect is however minor."
 
 \begin{siderules}
 What constitutes a frame in terms of training/testing? Is it a single capture from 1 of the 3 cameras or the stitched scene (i.e. one that the complete 
 containment area is in the field of view)? What is the input to the first stage CNN?
 \end{siderules}
 
-We have made several updates to Section 4 to address these questions.
+The input is a single capture from 1 of the 3 cameras that is first recified. Fig 3 shows three different input examples, one from each camera. We have made several updates to Section 4 to address these questions, including the reference to Fig 3 at the end of section 4.1.
 
 \begin{siderules}
 On section 5.1; it is claimed that 38\% of recording is uninteresting; is this percentage computed from the 6400 frames? If so what is the percentage of 
@@ -111,7 +113,8 @@ entire dataset, which allows as much as possible of variability of the dataset t
 The percentage of discarded video footage (uninteresting footage) depends on the farming practises and mechanics of the particular farm. Therefore the 50\% of discarded video footage is specific to that farm and that period of operation; this will vary from farm to farm, session, cow population and etc. This should be highlighted not to misguide the reader.
 \end{siderules}
 
-This is indeed a valid point. We have added text passages to clarify this (sec 6).
+This is indeed a valid point. We have added the following text passages to clarify this (sec 6): "Note that these numbers depend on how large portion of the recorded video is actually interesting and how
+often the scene is crowded (which is when most mistakes are made). This will vary between different farms and studies."
 
 \begin{siderules}
 Reviewer: 2
@@ -137,10 +140,15 @@ We have improved and corrected English and grammar.
 
 \begin{siderules}
 Results No statistics or correlative analyses are given for any of the comparisons.
+\end{siderules}
+
+Additional statistics in form of an other roc-curve have been added to Fig. 7 and a histogram of the number of cows detected per frame have been added as Fig. 5.
+
+\begin{siderules}
 summary of the experimental results is not explain properly.
 \end{siderules}
 
-We have made several changes to better describe and explain our evaluation, please see responses to reviewer 1 and 3.
+We've added sec 5.4 evaluation summary to address this.
 
 \begin{siderules}
 Reviewer: 3
@@ -150,7 +158,7 @@ It's unclear what the final output of the system actually is : The results are p
 Presumably, even if some frames are incorrectly classified, actual cow-cow interactions from other, adjacent, frames are still found ?
 \end{siderules}
 
-Good point, we have added an evaluation in terms of interactions as well (sec 5.3).
+Good point, we have added an evaluation in terms of interactions as well that is described in sec 5.3 and there is an additional roc curve in Fig. 7 with these results.
 
 \begin{siderules}
 The paper is generally well written. However there are a substantial number of typos (including double-quotes the wrong way around) and English grammar issues. I'd recommend getting
@@ -164,7 +172,9 @@ You need to explain how the following is actually achieved : "The learning rate 
 error flattens."
 \end{siderules}
 
-We have added such an explanation (sec 4.1).
+We have added the following an explanation (sec 4.1): "This was achieved by periodically, during the training, evaluating the CNN on the validation data
+(10\% of the annotated data that was not used for training) and when the validation error rated stopped decreasing,
+the learning rate was reduced."
 
 \begin{siderules}
 Some comments such as "A lot of false detections were made." need quantifying more thoroughly.
@@ -176,7 +186,14 @@ We have added an evaluation that quantifies this (sec 5.2)
 Citations: YOLO is perhaps more commonly cited as a CVPR paper, rather than the CoRR route ?
 \end{siderules}
 
-Good point. We have updated the reference.
+Good point. We have updated the reference to:
+
+Joseph Redmon, Santosh Divvala, Ross Girshick, and Ali Farhadi. You only look
+once: Unified, real-time object detection. In The IEEE Conference on Computer
+Vision and Pattern Recognition (CVPR), June 2016.
+
+Joseph Redmon and Ali Farhadi. Yolo9000: Better, faster, stronger. In The IEEE
+Conference on Computer Vision and Pattern Recognition (CVPR), July 2017.
 
 
  

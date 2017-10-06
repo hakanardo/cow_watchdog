@@ -19,8 +19,7 @@
 \author{\au{H. Ardö$^1$} \au{O. Guzhva$^2$} \au{M. Nilsson$^1$} \au{A. H. Herlin$^2$}}
 \address{
   \add{1}{Centre for Mathematical Sciences, Lund University, Sölvegatan 18, Lund, Sweden}
-  \add{2}{Swedish University of Agricultural Sciences, Department of Biosystems and Technology,
-Växtskyddsvägen 3, Box 103, 23053 Alnarp, Sweden}
+  \add{2}{Swedish University of Agricultural Sciences, Department of Biosystems and Technology, Box 103, 23053 Alnarp, Sweden}
   \email{ardo@maths.lth.se}
 }
 
@@ -145,8 +144,7 @@ study area. There was a significant overlap between the camera images to avoid m
 border between the cameras. See Figure~\ref{fig:old} for some example frames. In total three months of $800
 \times 600$ video at $16$ Frames Per Second (FPS), was collected.
 
-The cameras were calibrated to compensate for the lens distortion and rectified. Although the cameras were
-physically mounted to point fairly straight down, they were still slightly tilted. This tilting was
+The cameras were calibrated to compensate for the lens distortion and rectified. Although the physically orientation of the cameras were fixed to make them point fairly straight down, they were still slightly tilted. This tilting was
 synthetically removed during the rectification. The result of this calibration is video images where the cows
 have the same size regardless of where in the image they appear. Also, the scan-lines of the three different
 cameras become aligned, which allows them to be stitched together to form an overview of the entire waiting
@@ -390,7 +388,7 @@ the learning rate was reduced.
 
 Once the net was trained, the step length of the last maxpool layer was reduced from two to one to increase
 the output resolution. After that pixels at $\left(x, y\right)$ in the probability maps corresponds to
-detections at $\left(16 x + 75, 16 y + 75\right)$ in the input image.
+detections at $\left(16 x + 75, 16 y + 75\right)$ in the input image. During testing $n_w$ and $n_h$ depend on the size of the input frame which varies from camera to camera. Figure~\ref{fig:separate} show three different input examples, one from each camera.
 
 \subsection{Cow CNN}
 
@@ -578,7 +576,7 @@ is, for example, possible to discard 20\% of the uninteresting frames while only
 interesting once. If it is acceptable to lose more of the interesting frames, even more of uninteresting
 frames could be discarded as detailed by the curve.
 
-An interaction will consist of mltiple frames, and in many situations it is enough to detect a single one
+An interaction will consist of multiple frames, and in many situations it is enough to detect a single one
 of those frames as the user then could be allowed to also look at adjacent frames. Figure~\ref{fig:roc} also
 contains a per interaction roc curve that shows the amount of the interactions for which at least one frame
 was detected (true positives) as a function of the amount of the uninteresting frames remaining (false
@@ -600,6 +598,8 @@ positive rate).}
   \label{fig:roc}
 \end{figure}
 
+\subsection{Evaluation summary}
+The system was evaluated on several levels: cows, frames and interactions. Single cows were detected with a hit rate of 97\% and a false alarm rate of 2.9\%. Single frames were perfectly interpreted 92.8\% of the time. Frames with only zero or one cow present were correctly identified 99.5\% of the time. All interactions were detected while discarding 60\% of the video as uninteresting.
 
 \section{Conclusions}
 A CNN cow detection system has been developed. It can detect and count the cows present in the image with
@@ -607,7 +607,7 @@ high precision. 92.8\% of the test images were perfectly interpreted in the sens
 to place a rotated rectangle on each cow and nowhere else. This detector was used to discard 50\% of the
 recorded video as uninteresting while only losing 4\% of the interesting video. If detecting a single frame
 per interaction is enough, 60\% of the test dataset could be automatically discarded without losing any of the
-interactions. Regarding detection of single cows, the hitrate was 97\% with a false alarm rate of 2.9\%.
+interactions. Regarding detection of single cows, the hit rate was 97\% with a false alarm rate of 2.9\%.
 Note that these numbers depend on how large portion of the recorded video is actually interesting and how
 often the scene is crowded (which is when most mistakes are made). This will vary between different farms and
 studies.
@@ -625,7 +625,7 @@ conditions for the CVBS occurred in the summer''.
 The computations were performed on resources provided by the Swedish National Infrastructure for Computing
 (SNIC) at Lunarc. The Swedish Research Council for Environment, Agricultural Sciences and
 Spatial Planning (FORMAS) is acknowledged
-for the funding of the project. The farmer, Mikael Palm, is acknowledged for the use of his diary bran and
+for the funding of the project. The farmer, Mikael Palm, is acknowledged for the use of his diary barn and
 cows during the pilot study.
 
 
